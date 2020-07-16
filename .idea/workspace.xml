@@ -20,8 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1ad38a8-438d-4f12-a14b-55c80f5b83ea" name="Default Changelist" comment="test">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -45,6 +44,24 @@
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="SQLite - test.sqlite" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="SQLite - test.sqlite" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="SQLite - test.sqlite" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="SQLite - test.sqlite" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
+        <item name="test: table" type="3d80ac25:SqliteImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -106,10 +123,6 @@
             <expand>
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:MySql" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="root:SQLite - test.sqlite" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               </path>
               <path>
@@ -137,7 +150,7 @@
       <workItem from="1594654762524" duration="152000" />
       <workItem from="1594659492767" duration="330000" />
       <workItem from="1594701366364" duration="100000" />
-      <workItem from="1594876844505" duration="4205000" />
+      <workItem from="1594876844505" duration="5014000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1594656753261</created>
@@ -146,7 +159,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594656753262</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="SQLite数据库同步测试">
+      <created>1594881500766</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1594881500766</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,6 +175,31 @@
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:E:/JavaWork/Random-Management-System/.idea" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State>
@@ -164,10 +209,16 @@
         </entry>
       </map>
     </option>
+    <option name="OPEN_TABS">
+      <set>
+        <option value="1" />
+      </set>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="SQLite数据库同步测试" />
+    <option name="LAST_COMMIT_MESSAGE" value="SQLite数据库同步测试" />
   </component>
   <component name="WindowStateProjectService">
     <state x="411" y="223" width="1361" height="686" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594881044716">
@@ -182,10 +233,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="806" y="407" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594701379561" />
-    <state x="38" y="62" width="1866" height="829" key="CommitChangelistDialog2" timestamp="1594881371174">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-1866" y="158" width="1866" height="835" key="CommitChangelistDialog2" timestamp="1594881499853">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="38" y="62" width="1866" height="829" key="CommitChangelistDialog2/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594881371174" />
+    <state x="-1866" y="158" width="1866" height="835" key="CommitChangelistDialog2/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594881499853" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1594701444903">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -226,6 +277,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="93" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594880965694" />
+    <state x="552" y="251" key="Vcs.Push.Dialog.v2" timestamp="1594881816330">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="251" key="Vcs.Push.Dialog.v2/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594881816330" />
     <state x="540" y="173" key="com.intellij.database.dbimport.ImportDialog" timestamp="1594881310088">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -238,10 +293,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="764" y="161" key="com.intellij.database.view.ui.DbObjectDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594879479929" />
-    <state x="752" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594876865394">
+    <state x="752" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594881873949">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="752" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594876865394" />
+    <state x="752" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594881873949" />
     <state x="752" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1594659551461" />
     <state x="334" y="128" key="new project wizard" timestamp="1594880972330">
       <screen x="0" y="0" width="1920" height="1040" />
