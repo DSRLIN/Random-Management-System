@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="RMS-room" uuid="aec1d75c-99a1-49ae-9693-798ec6f85c1c">
+    <data-source source="LOCAL" name="SQLite - RMS-Room.sqlite" uuid="748fa57a-7132-47b3-b430-a447fd1afec4">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/DataBase/RMS-room.sqlite</jdbc-url>
-      <libraries>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.31.1/license.txt</url>
-        </library>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.31.1/sqlite-jdbc-3.31.1.jar</url>
-        </library>
-      </libraries>
+      <jdbc-url>jdbc:sqlite:\$PROJECT_DIR$\DataBase\RMS-room.sqlite</jdbc-url>
     </data-source>
   </component>
 </project>
