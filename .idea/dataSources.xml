@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="SQLite - test.sqlite" uuid="119ba6b7-a490-4021-b07d-80abf0219265">
+    <data-source source="LOCAL" name="SQLite - RMS-Room.sqlite" uuid="748fa57a-7132-47b3-b430-a447fd1afec4">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:E:\JavaWork\Random-Management-System\DataBase\test.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:E:\JavaWork\Random-Management-System\DataBase\RMS-Room.sqlite</jdbc-url>
     </data-source>
   </component>
 </project>
