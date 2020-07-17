@@ -4,6 +4,9 @@ import entities.RoomNumType;
 import service.UserSystemService;
 
 public class UserSystemServiceImpl implements UserSystemService {
+    private boolean isLogin = false;
+    private String userName;
+    private String userPasswd;
     @Override
     public void loanByRecommendResult(RoomNumType roomNum,
                                       int startHour, int startMinute,
