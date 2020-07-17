@@ -5,8 +5,8 @@ import service.UserSystemService;
 
 public class UserSystemServiceImpl implements UserSystemService {
     private boolean isLogin = false;
-    private String userName;
-    private String userPasswd;
+    private String curLoginUserName = null;
+    private String curLoginUserPasswd = null;
     @Override
     public void loanByRecommendResult(RoomNumType roomNum,
                                       int startHour, int startMinute,

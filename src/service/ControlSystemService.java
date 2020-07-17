@@ -8,4 +8,7 @@ public interface ControlSystemService extends Loanable,Queryable {
 
     //取消教室借用 任意取消
     public void cancel();
+
+    //删除提供账户
+    public void deleteAccount(String accountName);
 }

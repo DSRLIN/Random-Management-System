@@ -32,4 +32,11 @@ public class ControlSystemServiceImpl implements ControlSystemService {
     public void cancel() {
 
     }
+
+    @Override
+    public void deleteAccount(String accountName) {
+        //TODO：调接口去数据库执行删除操作
+        //什么？你问我用户怎么删？
+        //滚去联系客服啊（
+    }
 }
