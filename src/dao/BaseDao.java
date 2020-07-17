@@ -5,7 +5,7 @@ import java.sql.*;
 /**
  * 基础DAO类,单例,具体操作类无需继承此类,方法均为静态方法,可直接调用
  * @author Pharsalia
- * @version 0.1
+ * @version 0.1.1
  */
 public class BaseDao {
     //当前项目无需提供配置文件用于修改参数
@@ -47,9 +47,9 @@ public class BaseDao {
      */
     public static void closeObject(Connection conn, PreparedStatement pStmt, ResultSet rs){
         try{
-            if(conn != null) conn.close();
-            if(pStmt != null) pStmt.close();
             if(rs != null) rs.close();
+            if(pStmt != null) pStmt.close();
+            if(conn != null) conn.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -58,7 +58,7 @@ public class BaseDao {
     /**
      * 执行预编译语句的通用方法(查询结果无法返回)
      * @param pSql 要执行的预编译语句
-     * @param params 预编译语句中对应参数的对象数组
+     * @param params 语句中对应的参数组成的对象数组
      * @return 影响的行数
      */
     public static int executeSQL(String pSql, Object[] params){
@@ -75,6 +75,8 @@ public class BaseDao {
                     pStmt.setObject(i+1,params[i]);
                 }
             }
+            //执行
+            pStmt.execute();
             count = pStmt.getUpdateCount();
         }catch (Exception e){
             e.printStackTrace();
