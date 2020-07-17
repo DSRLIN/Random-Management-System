@@ -13,7 +13,7 @@ public class a {
             System.out.println("数据库测试");
             conn = BaseDao.getConnection();
             //测试用户表
-            result = conn.prepareStatement("SELECT * FROM user_table;").executeQuery();
+            result = conn.prepareStatement("SELECT * FROM account_table;").executeQuery();
             System.out.println(result.getString(1)+
                         "\t"+result.getString(2)+
                         "\t"+result.getString(3));
