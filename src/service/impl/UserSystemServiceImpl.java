@@ -1,9 +1,9 @@
 package service.impl;
 
 import entities.RoomNumType;
-import service.ControlSystemService;
+import service.UserSystemService;
 
-public class ControlSystemServiceImpl implements ControlSystemService {
+public class UserSystemServiceImpl implements UserSystemService {
     @Override
     public void loanByRecommendResult(RoomNumType roomNum,
                                       int startHour, int startMinute,
@@ -23,7 +23,12 @@ public class ControlSystemServiceImpl implements ControlSystemService {
     }
 
     @Override
-    public void login(String adminName, String adminPasswd) {
+    public void login(String userName, String userPasswd) {
+
+    }
+
+    @Override
+    public void register(String userName, String userPasswd) {
 
     }
 
