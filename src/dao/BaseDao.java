@@ -56,7 +56,7 @@ public class BaseDao {
     }
 
     /**
-     * 执行预编译语句的通用方法
+     * 执行预编译语句的通用方法(查询结果无法返回)
      * @param pSql 要执行的预编译语句
      * @param params 预编译语句中对应参数的对象数组
      * @return 影响的行数
