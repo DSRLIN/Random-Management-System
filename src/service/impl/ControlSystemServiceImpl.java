@@ -4,6 +4,7 @@ import entities.RoomNumType;
 import service.ControlSystemService;
 
 public class ControlSystemServiceImpl implements ControlSystemService {
+    private boolean isLogin = false;
     @Override
     public void loanByRecommendResult(RoomNumType roomNum,
                                       int startHour, int startMinute,
