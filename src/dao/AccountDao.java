@@ -34,7 +34,6 @@ public interface AccountDao {
      * @return 是否成功删号
      */
     boolean deleteAccount(String account);
-    //TODO：我们这个项目需要提供删除账户的功能吗 不过这功能应该也不难做 考虑考虑？
 
     /**
      * 与数据库交互的密码修改方法

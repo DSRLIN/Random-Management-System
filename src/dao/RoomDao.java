@@ -11,7 +11,7 @@ import java.util.List;
  *          添加成功返回true 房号已存在返回false
  *      修改房间信息 —— 参数:Room对象
  *          返回是否完成修改 修改的目标为传入对象房号对应的条目 将对象所有属性赋值给该行 请确认输入的是包含完整信息的对象
- *      删除房间 —— 参数:房号/Room对象
+ *      删除房间 —— 参数:房号String/Room对象
  *          删除成功返回true 房号或Room对象中房号对应的条目不存在返回false
  *  +查询接口:
  *      查询所有房间 —— 返回List<Room> 包含对象对应表中全部的房间信息
@@ -23,7 +23,6 @@ import java.util.List;
  * @version 0.1.0
  */
 public interface RoomDao {
-    //TODO：需要增删改吗 虽然房间列表可以固化 但是这些功能作为管理员功能 做出来指不定分高
     /**
      * 添加可借用房间
      * @param room 房间对象
