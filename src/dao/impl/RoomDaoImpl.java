@@ -6,6 +6,11 @@ import entities.Room;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * 可借用房间表操作类
+ * @author Pharsalia
+ * @version 0.0.1
+ */
 public class RoomDaoImpl implements RoomDao {
     //缓存连接、语句及结果集
     private Connection conn;
@@ -13,8 +18,7 @@ public class RoomDaoImpl implements RoomDao {
     private ResultSet rs;
 
     //将需要的SQL字符串存储为静态变量以便重复调用
-    public final static String insertSQL =
-            "";
+    public final static String insertSQL = "INSERT INTO room_table values (?, ?, ?, ?); ";
     public final static String updateSQL =
             "";
     public final static String deleteSQL_Rid =
@@ -26,11 +30,11 @@ public class RoomDaoImpl implements RoomDao {
             "";
     public final static String queryListSQL =
             "";
-    public final static String queryListSQL_type =
+    public final static String queryListSQL_Type =
             "";
-    public final static String queryListSQL_size =
+    public final static String queryListSQL_Size =
             "";
-    public final static String queryListSQL_multimedia =
+    public final static String queryListSQL_Multimedia =
             "";
 
     @Override
