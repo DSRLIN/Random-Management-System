@@ -1,6 +1,7 @@
 package service.impl;
 
 import dao.AccountDao;
+import dao.RentDao;
 import dao.RoomDao;
 import entities.*;
 import service.ControlSystemService;
@@ -20,7 +21,9 @@ public class ControlSystemServiceImpl implements ControlSystemService {
     }
 
     @Override
-    public boolean loanByName(String roomName) {
+    public boolean loanByName(String roomName,
+                              int startHour,int startMinute,
+                              int lastHour,int lastMinute){
         RoomDao rd = new RoomDaoImpl();
         rd.queryRoom(roomName);
         return false;
@@ -71,8 +74,10 @@ public class ControlSystemServiceImpl implements ControlSystemService {
     }
 
     @Override
-    public boolean cancel() {
-        return false;
+    public List<RentAction> cancel() {
+        RentDao rtd = new RentDaoImpl();
+        AccountDao ad = new AccountDaoImpl();
+        return rtd.queryRentList();
     }
 
     @Override

@@ -1,5 +1,9 @@
 package service;
 
+import entities.RentAction;
+
+import java.util.List;
+
 public interface ControlSystemService extends Loanable,Queryable {
     //控制系统接口 管理员使用
 
@@ -7,7 +11,7 @@ public interface ControlSystemService extends Loanable,Queryable {
     public boolean login(String adminName,String adminPasswd);
 
     //取消教室借用 任意取消
-    public boolean cancel();
+    public List<RentAction> cancel();
 
     //删除提供账户
     public boolean deleteAccount(String accountName);
