@@ -21,10 +21,6 @@ import java.util.List;
  * @version 0.1.0
  */
 public interface RentDao {
-    //TODO：需要根据时间段查询借用行为的接口吗（
-    // 需要的话我需要一个时间字符串的标准以便比较
-    // 或是 拿着整体表自己从里面取需求时间段？
-
     /**
      * 新增借用操作
      * @param userID 借用者ID
