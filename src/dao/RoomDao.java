@@ -1,8 +1,9 @@
 package dao;
 
 import entities.Room;
+import entities.RoomNumType;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * 房间表DAO接口
@@ -20,7 +21,7 @@ import java.util.List;
  *      根据房间大小获取房间列表 —— 输入大小 返回List<Room> 若无对应大小房间则返回null
  *      根据房间是否支持多媒体获取房间列表 —— 输入是否为多媒体房间 返回List<Room> 若无对应房间则返回null
  * @author Pharsalia
- * @version 0.1.0
+ * @version 0.1.1
  */
 public interface RoomDao {
     /**
@@ -62,23 +63,26 @@ public interface RoomDao {
      * 查询所有房间
      * @return 房间对象列表
      */
-    List<Room> queryRoomList();
+    ArrayList<Room> queryRoomList();
     /**
      * 根据房间类别查询房间（多态）
+     *  有关为何这里没有采用传入是否可固定占用的布尔值
+     *      这四个查询函数采用了多态的形式 如果这个参数是布尔值的话会和后面的是否多媒体冲突
+     *      而是否多媒体没有取代的方式 只能采取输入字符串的方法规避一下
      * @param type 房间类型（教室/会议室）
      * @return 房间对象列表
      */
-    List<Room> queryRoomList(String type);
+    ArrayList<Room> queryRoomList(String type);
     /**
      * 根据房间大小查询房间（多态）
      * @param size 房间大小（40/60/200）
      * @return 房间对象列表
      */
-    List<Room> queryRoomList(Integer size);
+    ArrayList<Room> queryRoomList(RoomNumType size);
     /**
      * 根据房间是否支持多媒体查询房间（多态）
      * @param isMultimedia 是否支持多媒体（T/F）
      * @return 房间对象列表
      */
-    List<Room> queryRoomList(Boolean isMultimedia);
+    ArrayList<Room> queryRoomList(Boolean isMultimedia);
 }

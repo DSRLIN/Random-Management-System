@@ -2,7 +2,7 @@ package dao;
 
 import entities.RentAction;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * 租用表DAO接口
@@ -18,7 +18,7 @@ import java.util.List;
  *      根据房间ID查询借用列表 —— 输入房间ID 返回List<RentAction> 若无该房间则返回null
  *      根据是否为固定借用返回借用行为列表 —— 输入是否固定借用 返回List<RentAction> 若列表为空则返回null
  * @author Pharsalia
- * @version 0.1.0
+ * @version 0.1.1
  */
 public interface RentDao {
     /**
@@ -50,26 +50,26 @@ public interface RentDao {
      * 查询所有借用操作
      * @return 借用操作对象列表
      */
-    List<RentAction> queryRentList();
+    ArrayList<RentAction> queryRentList();
 
     /**
      * 根据借用者查询借用操作(多态)
      * @param UID 借用者ID
      * @return 借用操作对象列表
      */
-    List<RentAction> queryRentList(Integer UID);
+    ArrayList<RentAction> queryRentList(Integer UID);
 
     /**
      * 根据房间号查询借用操作(多态)
      * @param RID 房间ID
      * @return 借用操作对象列表
      */
-    List<RentAction> queryRentList(String RID);
+    ArrayList<RentAction> queryRentList(String RID);
 
     /**
      * 根据是否固定时段借用查询借用操作(多态)
      * @param isFixed 是否为固定时段借用
      * @return 借用操作对象列表
      */
-    List<RentAction> queryRentList(boolean isFixed);
+    ArrayList<RentAction> queryRentList(boolean isFixed);
 }

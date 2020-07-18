@@ -37,22 +37,22 @@ public class RentDaoImpl implements RentDao {
     }
 
     @Override
-    public List<RentAction> queryRentList() {
+    public ArrayList<RentAction> queryRentList() {
         return null;
     }
 
     @Override
-    public List<RentAction> queryRentList(Integer UID) {
+    public ArrayList<RentAction> queryRentList(Integer UID) {
         return null;
     }
 
     @Override
-    public List<RentAction> queryRentList(String RID) {
+    public ArrayList<RentAction> queryRentList(String RID) {
         return null;
     }
 
     @Override
-    public List<RentAction> queryRentList(boolean isFixed) {
+    public ArrayList<RentAction> queryRentList(boolean isFixed) {
         return null;
     }
 }
