@@ -24,13 +24,13 @@ public class UserSystemServiceImpl implements UserSystemService {
     }
 
     @Override
-    public boolean isUsed(int useHour, int useMinute) {
+    public boolean isUsed(String roomName,int useHour, int useMinute) {
         return false;
     }
 
     @Override
     public boolean login(String userName, String userPasswd) {
-        AccountDaoImpl ad = new AccountDaoImpl();
+        AccountDao ad = new AccountDaoImpl();
         Integer userUID = ad.queryUID(userName);
         if (userUID == null){
             return false;
@@ -46,7 +46,7 @@ public class UserSystemServiceImpl implements UserSystemService {
 
     @Override
     public boolean register(String userName, String userPasswd) {
-        AccountDaoImpl ad = new AccountDaoImpl();
+        AccountDao ad = new AccountDaoImpl();
         return ad.registerAccount(userName,userPasswd);
     }
 

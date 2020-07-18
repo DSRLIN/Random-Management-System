@@ -7,7 +7,7 @@ public class Classroom extends Room {
     protected ArrayList<Long> fixedUsingTimeStart;  //同自由占用时间 以秒为单位
     protected ArrayList<Long> fixedUsingTimeEnd;    //结束时间
 
-    Classroom(String roomName,RoomNumType roomNum,boolean isMultimedia){
+    public Classroom(String roomName,RoomNumType roomNum,boolean isMultimedia){
         this.roomName = roomName;
         this.roomNum = roomNum;
         this.isMultimedia = isMultimedia;
