@@ -1,23 +1,26 @@
 package service.impl;
 
+import dao.AccountDao;
+import dao.impl.AccountDaoImpl;
 import entities.RoomNumType;
 import service.UserSystemService;
 
 public class UserSystemServiceImpl implements UserSystemService {
+
     private boolean isLogin = false;
     private String curLoginUserName = null;
     private String curLoginUserPasswd = null;
     @Override
-    public void loanByRecommendResult(RoomNumType roomNum,
+    public boolean loanByRecommendResult(RoomNumType roomNum,
                                       int startHour, int startMinute,
                                       int lastHour, int lastMinute,
                                       boolean isMultimedia) {
-
+        return false;
     }
 
     @Override
-    public void loanByName(String roomName) {
-
+    public boolean loanByName(String roomName) {
+        return false;
     }
 
     @Override
@@ -26,17 +29,29 @@ public class UserSystemServiceImpl implements UserSystemService {
     }
 
     @Override
-    public void login(String userName, String userPasswd) {
-
+    public boolean login(String userName, String userPasswd) {
+        AccountDaoImpl ad = new AccountDaoImpl();
+        Integer userUID = ad.queryUID(userName);
+        if (userUID == null){
+            return false;
+        }
+        if(!userPasswd.equals(ad.queryPassword(userName))){
+            return false;
+        }
+        this.curLoginUserName = userName;
+        this.curLoginUserPasswd = userPasswd;
+        this.isLogin = true;
+        return true;
     }
 
     @Override
-    public void register(String userName, String userPasswd) {
-
+    public boolean register(String userName, String userPasswd) {
+        AccountDaoImpl ad = new AccountDaoImpl();
+        return ad.registerAccount(userName,userPasswd);
     }
 
     @Override
-    public void cancel() {
-
+    public boolean cancel() {
+        return false;
     }
 }

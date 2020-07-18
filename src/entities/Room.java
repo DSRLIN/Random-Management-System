@@ -17,8 +17,9 @@ public abstract class Room {
     public boolean getIsFixedTimeUsed() { return this.isFixedTimeUsed; }
 
     //注：多媒体属性及是否可固定占用属性用户不得修改 在初始化时直接决定
-    public void setRoomName(String newRoomName) { this.roomName = newRoomName; }
     // usingTime的修改单独使用函数 不得直接更改整个数组
+    public void setRoomName(String newRoomName) { this.roomName = newRoomName; }
+
     public void setRoomNum(RoomNumType newRoomNum) { this.roomNum = newRoomNum; }
 
     public void addNewFreeUsingTime(int startHour,int startMinute,

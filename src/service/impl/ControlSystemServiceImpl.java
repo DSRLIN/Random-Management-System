@@ -1,21 +1,23 @@
 package service.impl;
 
+import dao.AccountDao;
 import entities.RoomNumType;
 import service.ControlSystemService;
+import dao.impl.*;
 
 public class ControlSystemServiceImpl implements ControlSystemService {
     private boolean isLogin = false;
     @Override
-    public void loanByRecommendResult(RoomNumType roomNum,
+    public boolean loanByRecommendResult(RoomNumType roomNum,
                                       int startHour, int startMinute,
                                       int lastHour, int lastMinute,
                                       boolean isMultimedia) {
-
+        return false;
     }
 
     @Override
-    public void loanByName(String roomName) {
-
+    public boolean loanByName(String roomName) {
+        return false;
     }
 
     @Override
@@ -24,19 +26,25 @@ public class ControlSystemServiceImpl implements ControlSystemService {
     }
 
     @Override
-    public void login(String adminName, String adminPasswd) {
-
+    public boolean login(String adminName, String adminPasswd) {
+        if((adminName.equals("admin"))&&(adminPasswd.equals("admin"))){
+            this.isLogin = true;
+            return true;
+        }
+        else{return false;}
     }
 
     @Override
-    public void cancel() {
-
+    public boolean cancel() {
+        return false;
     }
 
     @Override
-    public void deleteAccount(String accountName) {
+    public boolean deleteAccount(String accountName) {
         //TODO：调接口去数据库执行删除操作
         //什么？你问我用户怎么删？
         //滚去联系客服啊（
+        AccountDaoImpl ad = new AccountDaoImpl();
+        return ad.deleteAccount(accountName);
     }
 }

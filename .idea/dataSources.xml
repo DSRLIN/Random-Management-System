@@ -5,7 +5,7 @@
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:\$PROJECT_DIR$\DataBase\RMS-room.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/../Random-Management-System\DataBase\RMS-room.sqlite</jdbc-url>
     </data-source>
   </component>
 </project>
