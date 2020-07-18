@@ -11,7 +11,7 @@ import java.util.*;
  * 未继承BaseDao的原因:
  *  BaseDao被视为工具类 单例 且全部方法均为静态方法 这种状态下再进行继承是没有意义的
  * @author Pharsalia
- * @version 0.1.0
+ * @version 0.1.1
  */
 public class AccountDaoImpl implements AccountDao {
     //缓存连接、语句及结果集
@@ -21,9 +21,9 @@ public class AccountDaoImpl implements AccountDao {
 
     //将需要的SQL字符串存储为静态变量以便重复调用
     public final static String insertSQL =
-            "INSERT INTO account_table values (null,?,?); ";
+            "INSERT INTO account_table VALUES (null,?,?); ";
     public final static String deleteSQL =
-            "DELETE FROM account_table where ACCOUNT = ?; ";
+            "DELETE FROM account_table WHERE ACCOUNT = ?; ";
     public final static String updateSQL =
             "UPDATE account_table SET PASSWORD = ? WHERE ACCOUNT = ?; ";
 
