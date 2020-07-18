@@ -15,4 +15,13 @@ public enum RoomNumType {
     public int getValue() {
         return value;
     }
+    //根据传入的int 返回对应的枚举类型
+    public static RoomNumType getEnum(int i){
+        switch (i){
+            case 40:  return forty;
+            case 60:  return sixty;
+            case 200: return two_hundred;
+            default:  return null;
+        }
+    }
 }
