@@ -218,7 +218,7 @@ public class RoomDaoImpl implements RoomDao {
 
     /**
      * 根据查询结果集生成Room对象列表
-     * 工具函数 承载重复率过高冗余代码
+     * 工具函数 承载冗余代码
      * @param rs 查询结果集
      * @return Room对象列表
      */

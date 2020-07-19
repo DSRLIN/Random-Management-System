@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *      修改借用 —— 请自行删除对应条目并新增条目
  *      0.2.0新增:
  *          添加借用 —— 参数:RentAction RentNumber项随意输入 不会使用
- *              根据RentAction中的信息添加操作 添加成功返回借用操作ID 未找到用户ID或房间号返回-1
+ *              根据RentAction中的信息添加操作 添加成功返回借用操作ID 未找到用户ID或房间号返回null
  *          取消借用 —— 参数:RentAction RentNumber项随意输入 不会使用
  *              根据RentAction中的信息查找条目并执行删除 取消成功返回true
  *          取消借用 —— 参数:借用操作ID
@@ -61,7 +61,7 @@ public interface RentDao {
      * @param rentAction 借用行为信息
      * @return 借用操作条目ID
      */
-    int addRent(RentAction rentAction);
+    Integer addRent(RentAction rentAction);
 
     /**
      * 取消借用操作
@@ -75,21 +75,21 @@ public interface RentDao {
      * @param rentNumber 借用操作条目
      * @return 是否成功取消
      */
-    boolean deleteRent(int rentNumber);
+    boolean deleteRent(Integer rentNumber);
 
     /**
      * 根据操作ID查找借用信息
      * @param rentNumber 借用操作ID
      * @return 借用行为信息
      */
-    RentAction queryRent(int rentNumber);
+    RentAction queryRent(Integer rentNumber);
 
     /**
      * 根据借用信息查找操作ID
      * @param rentAction 借用行为信息
      * @return 借用操作ID
      */
-    int queryRentNumber(RentAction rentAction);
+    Integer queryRentNumber(RentAction rentAction);
 
     /**
      * 查询所有借用操作
