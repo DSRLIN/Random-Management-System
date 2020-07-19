@@ -37,6 +37,31 @@ public class RentDaoImpl implements RentDao {
     }
 
     @Override
+    public int addRent(RentAction rentAction) {
+        return 0;
+    }
+
+    @Override
+    public boolean deleteRent(RentAction rentAction) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteRent(int rentNumber) {
+        return false;
+    }
+
+    @Override
+    public RentAction queryRent(int rentNumber) {
+        return null;
+    }
+
+    @Override
+    public int queryRentNumber(RentAction rentAction) {
+        return 0;
+    }
+
+    @Override
     public ArrayList<RentAction> queryRentList() {
         return null;
     }

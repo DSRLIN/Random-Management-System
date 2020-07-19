@@ -10,9 +10,10 @@ package entities;
  *      同时关系集也是一张表 因此需要一个类来承载表的信息
  *      虽然在entities里确实不是特别贴切 但再为了这个类造个action包 凑合用着吧
  * @author Pharsalia
- * @version 0.1.0
+ * @version 0.2.0
  */
 public class RentAction {
+    public int RentNumber;
     public int UID;
     public String RID;
     public String start_time;
@@ -21,14 +22,16 @@ public class RentAction {
 
     /**
      * 构造函数
+     * @param rentNumber 借用记录ID
      * @param userID 用户ID
      * @param roomID 房间ID
      * @param startTime 借用起始时间
      * @param lastTime 借用持续时间
      * @param bFixed 借用方式是否为固定借用
      */
-    public RentAction(int userID,String roomID,
+    public RentAction(int rentNumber,int userID,String roomID,
                       String startTime,String lastTime,boolean bFixed){
+        this.RentNumber = rentNumber;
         this.UID = userID;
         this.RID = roomID;
         this.start_time = startTime;
