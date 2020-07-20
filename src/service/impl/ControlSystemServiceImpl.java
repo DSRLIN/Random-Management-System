@@ -8,16 +8,82 @@ import service.ControlSystemService;
 import dao.impl.*;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ControlSystemServiceImpl implements ControlSystemService {
     private boolean isLogin = false;
 
     @Override
-    public boolean loanByRecommendResult(RoomNumType roomNum,
-                                      int startHour, int startMinute,
-                                      int lastHour, int lastMinute,
-                                      boolean isMultimedia) {
-        return false;
+    public List<Room>  queryRecommendResult(RoomNumType roomNum,
+                                            int startHour, int startMinute,
+                                            int lastHour, int lastMinute,
+                                            boolean isMultimedia) {
+        if(isLogin){
+            long startTime = startHour*3600+startMinute*60;
+            long lastTime = lastHour*3600+lastMinute+60;
+            long useTime = startTime+lastTime;
+            RoomDao rd = new RoomDaoImpl();
+            List<Room> roomNumList = rd.queryRoomList(roomNum);
+            List<Room> roomMultimediaList = rd.queryRoomList(isMultimedia);
+            //注：最后的返回项是roomNumList
+            roomNumList.retainAll(roomMultimediaList);
+            for (int i = 0; i < roomNumList.size(); i++) {
+                //教室类型的
+                if(roomNumList.get(i).getIsFixedTimeUsed()){
+                    Classroom tmpCls = (Classroom) roomNumList.get(i);
+                    //循环只要找到true立刻鲨掉
+                    AtomicBoolean secondKey = new AtomicBoolean(true); //如果第一个循环未找到 则进入第二个循环
+                    for (int j = 0; j < tmpCls.getFixedUsingTimeStart().size(); j++) {
+                        if((startTime > tmpCls.getFixedUsingTimeStart().get(j)&&
+                                startTime < tmpCls.getFixedUsingTimeEnd().get(j))||(
+                                useTime > tmpCls.getFixedUsingTimeStart().get(j)&&
+                                        useTime < tmpCls.getFixedUsingTimeEnd().get(j))||(
+                                tmpCls.getFixedUsingTimeStart().get(j) > startTime&&
+                                        tmpCls.getFixedUsingTimeStart().get(j) < useTime)||(
+                                tmpCls.getFixedUsingTimeEnd().get(j) > startTime&&
+                                        tmpCls.getFixedUsingTimeEnd().get(j) < useTime)) {
+                            roomNumList.remove(i);
+                            secondKey.set(false);
+                            break;
+                        }
+                        if(secondKey.get()){
+                            for (int k = 0; k < tmpCls.getFreeUsingTimeStart().size(); k++) {
+                                if((startTime > tmpCls.getFreeUsingTimeStart().get(k)&&
+                                        startTime < tmpCls.getFreeUsingTimeEnd().get(k))||(
+                                        useTime > tmpCls.getFreeUsingTimeStart().get(k)&&
+                                                useTime < tmpCls.getFreeUsingTimeEnd().get(k))||(
+                                        tmpCls.getFreeUsingTimeStart().get(k) > startTime&&
+                                                tmpCls.getFreeUsingTimeStart().get(k) < useTime)||(
+                                        tmpCls.getFreeUsingTimeEnd().get(k) > startTime&&
+                                                tmpCls.getFreeUsingTimeEnd().get(k) < useTime)) {
+                                    roomNumList.remove(i);
+                                    break;
+                                }
+                            }
+
+                        }
+                    }
+                }else{
+                    MeetingRoom tmpMtr = (MeetingRoom) roomNumList.get(i);
+                    //循环只要找到true立刻鲨掉
+                    for (int k = 0; k < tmpMtr.getFreeUsingTimeStart().size(); k++) {
+                        if((startTime > tmpMtr.getFreeUsingTimeStart().get(k)&&
+                                startTime < tmpMtr.getFreeUsingTimeEnd().get(k))||(
+                                useTime > tmpMtr.getFreeUsingTimeStart().get(k)&&
+                                        useTime < tmpMtr.getFreeUsingTimeEnd().get(k))||(
+                                tmpMtr.getFreeUsingTimeStart().get(k) > startTime&&
+                                        tmpMtr.getFreeUsingTimeStart().get(k) < useTime)||(
+                                tmpMtr.getFreeUsingTimeEnd().get(k) > startTime&&
+                                        tmpMtr.getFreeUsingTimeEnd().get(k) < useTime)) {
+                            roomNumList.remove(i);
+                            break;
+                        }
+                    }
+                }
+            }
+            return roomNumList;
+        }
+        else return null;
     }
 
     @Override
@@ -65,6 +131,13 @@ public class ControlSystemServiceImpl implements ControlSystemService {
     }
 
     @Override
+    public List<RentAction> cancelQuery() {
+        RentDao rtd = new RentDaoImpl();
+        AccountDao ad = new AccountDaoImpl();
+        return rtd.queryRentList();
+    }
+
+    @Override
     public boolean login(String adminName, String adminPasswd) {
         if((adminName.equals("admin"))&&(adminPasswd.equals("admin"))){
             this.isLogin = true;
@@ -74,10 +147,9 @@ public class ControlSystemServiceImpl implements ControlSystemService {
     }
 
     @Override
-    public List<RentAction> cancel() {
+    public boolean cancel(RentAction ra) {
         RentDao rtd = new RentDaoImpl();
-        AccountDao ad = new AccountDaoImpl();
-        return rtd.queryRentList();
+        return rtd.deleteRent(ra);
     }
 
     @Override
