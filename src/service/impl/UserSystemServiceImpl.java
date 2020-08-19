@@ -9,6 +9,7 @@ import dao.impl.RoomDaoImpl;
 import entities.*;
 import service.UserSystemService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -184,5 +185,11 @@ public class UserSystemServiceImpl implements UserSystemService {
     public boolean cancel(RentAction ra) {
         RentDao rtd = new RentDaoImpl();
         return rtd.deleteRent(ra);
+    }
+
+    @Override
+    public ArrayList<Room> queryAllRoom() {
+        RoomDao rd = new RoomDaoImpl();
+        return rd.queryRoomList();
     }
 }

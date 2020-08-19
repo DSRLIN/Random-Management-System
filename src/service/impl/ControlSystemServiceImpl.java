@@ -7,6 +7,8 @@ import entities.*;
 import service.ControlSystemService;
 import dao.impl.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -159,5 +161,17 @@ public class ControlSystemServiceImpl implements ControlSystemService {
         //滚去联系客服啊（
         AccountDao ad = new AccountDaoImpl();
         return ad.deleteAccount(accountName);
+    }
+
+    @Override
+    public ArrayList<Room> queryAllRoom() {
+        RoomDao rd = new RoomDaoImpl();
+        return rd.queryRoomList();
+    }
+
+    @Override
+    public HashMap<Integer, String> queryAllUsers() {
+        AccountDao ad = new AccountDaoImpl();
+        return ad.queryAccountList();
     }
 }

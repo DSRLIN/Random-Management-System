@@ -1,7 +1,9 @@
 package service;
 
 import entities.RentAction;
+import entities.Room;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface UserSystemService extends Loanable,Queryable {
@@ -15,4 +17,8 @@ public interface UserSystemService extends Loanable,Queryable {
 
     //取消教室占用 只能取消自己申请的内容
     boolean cancel(RentAction ra);
+
+    //显示全部教室信息
+    ArrayList<Room> queryAllRoom();
+
 }

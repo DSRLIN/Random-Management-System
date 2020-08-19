@@ -1,7 +1,10 @@
 package service;
 
 import entities.RentAction;
+import entities.Room;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public interface ControlSystemService extends Loanable,Queryable {
@@ -15,4 +18,10 @@ public interface ControlSystemService extends Loanable,Queryable {
 
     //删除提供账户
     boolean deleteAccount(String accountName);
+
+    //显示全部教室信息
+    ArrayList<Room> queryAllRoom();
+
+    //显示全部账户信息
+    HashMap<Integer,String> queryAllUsers();
 }
