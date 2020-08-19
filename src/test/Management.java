@@ -70,7 +70,7 @@ public class Management {
     //用户注册
     private static void registerUser(){
         Scanner input=new Scanner(System.in);
-        int returnNum=1;
+        int returnNum=1;//返回上一级
         System.out.println("请输入用户名");
         String name = input.next();
         System.out.println("请输入用户密码");
@@ -78,7 +78,7 @@ public class Management {
         UserSystemServiceImpl user = new UserSystemServiceImpl();
         user.register(name,password);
         System.out.println("成功创建用户"+name);
-        while(returnNum!=0){
+        while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
             returnNum=input.nextInt();
         }
@@ -122,7 +122,7 @@ public class Management {
                 case 0:
                     System.out.println("退出成功");
                     type = false;
-                    startRandomManagement();
+                    startRandomManagement();//发返回主界面
                     break;
                 case 1:
                     borrowingRoom(user);//借用房间
@@ -172,7 +172,7 @@ public class Management {
                 case 0:
                     System.out.println("退出成功");
                     type = false;
-                    startRandomManagement();
+                    startRandomManagement();//返回主界面
                     break;
                 case 1:
                     borrowingRoom(user);//借用房间
@@ -217,7 +217,7 @@ public class Management {
     //用户功能实现：借用房间
     private static void borrowingRoom(UserSystemServiceImpl user){
         Scanner input=new Scanner(System.in);
-        int returnNum=1;
+        int returnNum=1;//返回上一级要用到的数字
         System.out.println("欢迎使用教室借用功能");
         System.out.println("请输入要借用的教室名称：");
         String roomName=input.next();
@@ -234,7 +234,7 @@ public class Management {
         }else{
             System.out.println("借用失败");
         }
-        while(returnNum!=0){
+        while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
             returnNum=input.nextInt();
         }
@@ -244,7 +244,7 @@ public class Management {
     //用户功能实现：借用情况查询
     private static void borrowingQuery(UserSystemServiceImpl user){
         Scanner input=new Scanner(System.in);
-        int returnNum=1;
+        int returnNum=1;//返回上一级
         System.out.println("欢迎使用教室借用查询功能");
         System.out.println("请输入要查询的教室名称： ");
         String roomName=input.next();
@@ -258,7 +258,7 @@ public class Management {
         }else{
             System.out.println("该房间在"+loanHour+"小时"+loanmin+"分钟没有被占用");
         }
-        while(returnNum!=0){
+        while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
             returnNum=input.nextInt();
         }
@@ -268,29 +268,33 @@ public class Management {
     //用户功能实现：取消房间借用
     private static void cancelBorrow(UserSystemServiceImpl user){
         Scanner input=new Scanner(System.in);
-        int returnNum=1;
+        int returnNum=1;//返回上一级
         System.out.println("欢迎使用房间借用取消功能");
         List<RentAction> list=user.cancelQuery();
-        System.out.println("借用列表如下");
-        System.out.println("借用记录id\t用户id\t房间id\t借用起始时间\t借用持续时间\t借用方式");
-        for (RentAction rentAction : list) {
-            RentAction ra = (RentAction) rentAction;
-            String pattern = null;
-            if (ra.isFixed)
-                pattern = "固定";
-            else pattern = "非固定";
-            System.out.println(ra.RentNumber + "\t\t" + ra.UID + "\t" + ra.RID + "\t" + ra.start_time + "\t" + ra.last_time + "\t" + pattern);
-        }
-        System.out.println("请输入借用教室取消的借用记录id");
-        int id=input.nextInt();
+        if (list==null){//表为空的话跳转的返回上一级
+            System.out.println("借用记录为空");
+        }else {
+            System.out.println("借用列表如下");
+            System.out.println("借用记录id\t用户id\t房间id\t借用起始时间\t借用持续时间\t借用方式");
+            for (RentAction rentAction : list) {
+                RentAction ra = (RentAction) rentAction;
+                String pattern = null;
+                if (ra.isFixed)
+                    pattern = "固定";
+                else pattern = "非固定";
+                System.out.println(ra.RentNumber + "\t\t" + ra.UID + "\t" + ra.RID + "\t" + ra.start_time + "\t" + ra.last_time + "\t" + pattern);
+            }
+            System.out.println("请输入借用教室取消的借用记录id");
+            int id = input.nextInt();
 
-        for (RentAction rentAction : list) {
-            RentAction ra1 = (RentAction) rentAction;
-            if(ra1.RentNumber==id){
-                user.cancel(ra1);
+            for (RentAction rentAction : list) {//遍历一遍找到删除
+                RentAction ra1 = (RentAction) rentAction;
+                if (ra1.RentNumber == id) {
+                    user.cancel(ra1);
+                }
             }
         }
-        while(returnNum!=0){
+        while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
             returnNum=input.nextInt();
         }
@@ -300,14 +304,14 @@ public class Management {
     //用户功能实现：查询推荐结果
     private static void queryRecommend(UserSystemServiceImpl user){
         Scanner input=new Scanner(System.in);
-        int returnNum=1;
-        int sitnum=0;
-        boolean isMultimedia=false;
+        int returnNum=1;//返回上一级
+        int sitnum=0;//记录座位数量
+        boolean isMultimedia=false;//是否多媒体
         RoomNumType roomNum =null;//记录类型
         System.out.println("欢迎使用查询推荐功能");
         System.out.println("请输入座位数量：40/60/200");
-        boolean type = true;
-        boolean type1 = true;
+        boolean type = true;//循环保证座位输入正确的判别
+        boolean type1 = true;//循环保证判断多媒体输入正确
         while (type) {
             sitnum = input.nextInt();
             switch (sitnum) {
@@ -336,7 +340,7 @@ public class Management {
         int endHour=input.nextInt();
         int endmin=input.nextInt();
         System.out.println("请输入是否为多媒体y/n");
-        while (type1) {
+        while (type1) {//循环保证输入正确
             String isMul=input.next();
             if (isMul.equals("y")) {
                 type1 = false;
@@ -350,21 +354,25 @@ public class Management {
             }
         }
         List<Room> lr=user.queryRecommendResult(roomNum,startHour,startmin,endHour,endmin,isMultimedia);
-        System.out.println("房间列表如下：");
-        System.out.println("房间号码\t房间类型\t房间是否为多媒体教室\t是否固定");
-        for (Room room : lr) {
-            Room rm = (Room) room;
-            String pattern = null;
-            String isMul = null;
-            if (rm.getIsFixedTimeUsed())
-                pattern = "固定";
-            else pattern = "非固定";
-            if (rm.getIsMultiMedia()) {
-                isMul = "是多媒体教室";
-            } else isMul = "不是多媒体教室";
-            System.out.println(rm.getRoomName() + "\t\t" + rm.getRoomNum().name() + "\t" + isMul + "\t" + pattern + "\t" );
+        if(lr==null){//空表返回上一级
+            System.out.println("查询结果为空");
+        }else {
+            System.out.println("房间列表如下：");
+            System.out.println("房间号码\t\t房间类型\t\t房间是否为多媒体教室\t是否可以固定占用");
+            for (Room room : lr) {
+                Room rm = (Room) room;
+                String pattern = null;
+                String isMul = null;
+                if (rm.getIsFixedTimeUsed())
+                    pattern = "固定";
+                else pattern = "非固定";
+                if (rm.getIsMultiMedia()) {
+                    isMul = "是";
+                } else isMul = "不是";
+                System.out.println(rm.getRoomName() + "        " + rm.getRoomNum().name() + "\t\t\t" + isMul + "\t\t\t\t\t" + pattern + "\t" );
+            }
         }
-        while(returnNum!=0){
+        while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
             returnNum=input.nextInt();
         }
@@ -373,24 +381,28 @@ public class Management {
 
     //用户功能实现：显示全部教室信息
     private static void showAllRoom(UserSystemServiceImpl user){
-        int returnNum=1;
+        int returnNum=1;//返回上一级
         Scanner input=new Scanner(System.in);
         System.out.println("全部教室信息显示如下：");
         List<Room> lr=user.queryAllRoom();
-        System.out.println("房间号码\t\t房间类型\t\t房间是否为多媒体教室\t是否可以固定占用");
-        for (Room room : lr) {
-            Room rm = (Room) room;
-            String pattern = null;
-            String isMul = null;
-            if (rm.getIsFixedTimeUsed())
-                pattern = "固定";
-            else pattern = "非固定";
-            if (rm.getIsMultiMedia()) {
-                isMul = "是";
-            } else isMul = "不是";
-            System.out.println(rm.getRoomName() + "        " + rm.getRoomNum().name() + "\t\t\t" + isMul + "\t\t\t\t\t" + pattern + "\t" );
+        if(lr==null){
+            System.out.println("教室信息为空");
+        }else {
+            System.out.println("房间号码\t\t房间类型\t\t房间是否为多媒体教室\t是否可以固定占用");
+            for (Room room : lr) {
+                Room rm = (Room) room;
+                String pattern = null;
+                String isMul = null;
+                if (rm.getIsFixedTimeUsed())
+                    pattern = "固定";
+                else pattern = "非固定";
+                if (rm.getIsMultiMedia()) {
+                    isMul = "是";
+                } else isMul = "不是";
+                System.out.println(rm.getRoomName() + "        " + rm.getRoomNum().name() + "\t\t\t" + isMul + "\t\t\t\t\t" + pattern + "\t");
+            }
         }
-        while(returnNum!=0){
+        while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
             returnNum=input.nextInt();
         }
@@ -403,20 +415,24 @@ public class Management {
         Scanner input=new Scanner(System.in);
         System.out.println("全部教室信息显示如下：");
         List<Room> lr=user.queryAllRoom();
-        System.out.println("房间号码\t\t房间类型\t\t房间是否为多媒体教室\t是否可以固定占用");
-        for (Room room : lr) {
-            Room rm = (Room) room;
-            String pattern = null;
-            String isMul = null;
-            if (rm.getIsFixedTimeUsed())
-                pattern = "固定";
-            else pattern = "非固定";
-            if (rm.getIsMultiMedia()) {
-                isMul = "是多媒体教室";
-            } else isMul = "不是多媒体教室";
-            System.out.println(rm.getRoomName() + "        " + rm.getRoomNum().name() + "\t\t\t" + isMul + "\t\t\t\t\t" + pattern + "\t" );
+        if(lr==null){
+            System.out.println("教室信息为空");
+        }else {
+            System.out.println("房间号码\t\t房间类型\t\t房间是否为多媒体教室\t是否可以固定占用");
+            for (Room room : lr) {
+                Room rm = (Room) room;
+                String pattern = null;
+                String isMul = null;
+                if (rm.getIsFixedTimeUsed())
+                    pattern = "固定";
+                else pattern = "非固定";
+                if (rm.getIsMultiMedia()) {
+                    isMul = "是多媒体教室";
+                } else isMul = "不是多媒体教室";
+                System.out.println(rm.getRoomName() + "        " + rm.getRoomNum().name() + "\t\t\t" + isMul + "\t\t\t\t\t" + pattern + "\t");
+            }
         }
-        while(returnNum!=0){
+        while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
             returnNum=input.nextInt();
         }
@@ -426,7 +442,7 @@ public class Management {
     //管理员功能实现：借用房间
     private static void borrowingRoom(ControlSystemServiceImpl user){
         Scanner input=new Scanner(System.in);
-        int returnNum=1;
+        int returnNum=1;//返回上一级
         System.out.println("欢迎使用教室借用功能");
         System.out.println("请输入要借用的教室名称：");
         String roomName=input.next();
@@ -436,14 +452,14 @@ public class Management {
         System.out.println("请输入要借用中止时间（小时  分钟）");
         int endHour=input.nextInt();
         int endmin=input.nextInt();
-        boolean state=false;
+        boolean state=false;//判断借用是否成功
         state=user.loanByName(roomName,startHour,startmin,endHour,endmin);
         if(state){
             System.out.println("借用成功");
         }else{
             System.out.println("借用失败");
         }
-        while(returnNum!=0){
+        while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
             returnNum=input.nextInt();
         }
@@ -453,21 +469,21 @@ public class Management {
     //管理员功能实现：借用情况查询
     private static void borrowingQuery(ControlSystemServiceImpl user){
         Scanner input=new Scanner(System.in);
-        int returnNum=1;
+        int returnNum=1;//返回上一级
         System.out.println("欢迎使用教室借用查询功能");
         System.out.println("请输入要查询的教室名称： ");
         String roomName=input.next();
         System.out.println("请输入要查询的起始时间（小时  分钟）");
         int loanHour=input.nextInt();
         int loanmin=input.nextInt();
-        boolean state=false;
+        boolean state=false;//判断是否被占用
         state = user.isUsed(roomName,loanHour,loanmin);
         if(state){
             System.out.println("该房间在"+loanHour+"小时"+loanmin+"分钟被占用");
         }else{
             System.out.println("该房间在"+loanHour+"小时"+loanmin+"分钟没有被占用");
         }
-        while(returnNum!=0){
+        while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
             returnNum=input.nextInt();
         }
@@ -477,26 +493,30 @@ public class Management {
     //管理员功能实现：取消房间借用
     private static void cancelBorrow(ControlSystemServiceImpl user){
         Scanner input=new Scanner(System.in);
-        int returnNum=1;
+        int returnNum=1;//返回上一级
         System.out.println("欢迎使用房间借用取消功能");
         List<RentAction> list=user.cancelQuery();
-        System.out.println("借用列表如下");
-        System.out.println("借用记录id\t用户id\t房间id\t借用起始时间\t借用持续时间\t借用方式");
-        for (RentAction rentAction : list) {
-            RentAction ra = (RentAction) rentAction;
-            String pattern = null;
-            if (ra.isFixed)
-                pattern = "固定";
-            else pattern = "非固定";
-            System.out.println(ra.RentNumber + "\t\t" + ra.UID + "\t" + ra.RID + "\t" + ra.start_time + "\t" + ra.last_time + "\t" + pattern);
-        }
-        System.out.println("请输入借用教室取消的借用记录id");
-        int id=input.nextInt();
+        if (list==null) {
+            System.out.println("借用记录为空");
+        }else {
+            System.out.println("借用列表如下");
+            System.out.println("借用记录id\t用户id\t房间id\t借用起始时间\t借用持续时间\t借用方式");
+            for (RentAction rentAction : list) {
+                RentAction ra = (RentAction) rentAction;
+                String pattern = null;
+                if (ra.isFixed)
+                    pattern = "固定";
+                else pattern = "非固定";
+                System.out.println(ra.RentNumber + "\t\t" + ra.UID + "\t" + ra.RID + "\t" + ra.start_time + "\t" + ra.last_time + "\t" + pattern);
+            }
+            System.out.println("请输入借用教室取消的借用记录id");
+            int id = input.nextInt();
 
-        for (RentAction rentAction : list) {
-            RentAction ra1 = (RentAction) rentAction;
-            if(ra1.RentNumber==id){
-                user.cancel(ra1);
+            for (RentAction rentAction : list) {
+                RentAction ra1 = (RentAction) rentAction;
+                if (ra1.RentNumber == id) {
+                    user.cancel(ra1);
+                }
             }
         }
         while(returnNum!=0){
@@ -509,14 +529,14 @@ public class Management {
     //管理员功能实现：查询推荐结果
     private static void queryRecommend(ControlSystemServiceImpl user){
         Scanner input=new Scanner(System.in);
-        int returnNum=1;
-        int sitnum=0;
+        int returnNum=1;//返回上一级
+        int sitnum=0;//座位数量
         boolean isMultimedia=false;
         RoomNumType roomNum =null;//记录类型
         System.out.println("欢迎使用查询推荐功能");
         System.out.println("请输入座位数量：40/60/200");
-        boolean type = true;
-        boolean type1 = true;
+        boolean type = true;//循环保证座位输入正确的判别
+        boolean type1 = true;////循环保证判断多媒体输入正确
         while (type) {
             sitnum = input.nextInt();
             switch (sitnum) {
@@ -559,19 +579,23 @@ public class Management {
             }
         }
         List<Room> lr=user.queryRecommendResult(roomNum,startHour,startmin,endHour,endmin,isMultimedia);
-        System.out.println("房间列表如下：");
-        System.out.println("房间号码\t房间类型\t房间是否为多媒体教室\t是否固定");
-        for (Room room : lr) {
-            Room rm = (Room) room;
-            String pattern = null;
-            String isMul = null;
-            if (rm.getIsFixedTimeUsed())
-                pattern = "固定";
-            else pattern = "非固定";
-            if (rm.getIsMultiMedia()) {
-                isMul = "是多媒体教室";
-            } else isMul = "不是多媒体教室";
-            System.out.println(rm.getRoomName() + "\t\t" + rm.getRoomNum().name() + "\t" + isMul + "\t" + pattern + "\t" );
+        if(lr==null){
+            System.out.println("查询结果为空");
+        }else {
+            System.out.println("房间列表如下：");
+            System.out.println("房间号码\t\t房间类型\t\t房间是否为多媒体教室\t是否可以固定占用");
+            for (Room room : lr) {
+                Room rm = (Room) room;
+                String pattern = null;
+                String isMul = null;
+                if (rm.getIsFixedTimeUsed())
+                    pattern = "固定";
+                else pattern = "非固定";
+                if (rm.getIsMultiMedia()) {
+                    isMul = "是多媒体教室";
+                } else isMul = "不是多媒体教室";
+                System.out.println(rm.getRoomName() + "        " + rm.getRoomNum().name() + "\t\t\t" + isMul + "\t\t\t\t\t" + pattern + "\t");
+            }
         }
         while(returnNum!=0){
             System.out.println("请输入0返回");
@@ -583,15 +607,15 @@ public class Management {
     //管理员功能实现：删除用户
     private static void deleteAccount(ControlSystemServiceImpl user){
         Scanner input=new Scanner(System.in);
-        int returnNum=1;
-        String nameDel;
+        int returnNum=1;//返回上一级
+        String nameDel;//要删除的用户名字
         System.out.println("欢迎使用用户删除功能");
         System.out.println("请输入要删除的用户");
         nameDel=input.next();
         if(user.deleteAccount(nameDel)){
             System.out.println("删除成功");
         }else System.out.println("删除失败");
-        while(returnNum!=0){
+        while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
             returnNum=input.nextInt();
         }
@@ -601,13 +625,13 @@ public class Management {
     //管理员功能实现：显示全部用户信息
     private static void showAllAccount(ControlSystemServiceImpl user){
         Scanner input=new Scanner(System.in);
-        int returnNum=1;
+        int returnNum=1;//返回上一级
         System.out.println("全部用户信息");
         Set keys=user.queryAllUsers().keySet();
         for(Object key:keys){
             System.out.println(key+"\t"+user.queryAllUsers().get(key));
         }
-        while(returnNum!=0){
+        while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
             returnNum=input.nextInt();
         }
@@ -699,7 +723,7 @@ public class Management {
             Room newRoom=new MeetingRoom(roomName,roomNum);
             roomBuild.buildRoom(newRoom);
         }
-        while(returnNum!=0){
+        while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
             returnNum=input.nextInt();
         }
