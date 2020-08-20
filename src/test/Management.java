@@ -1,9 +1,7 @@
 package test;
 
-import com.sun.org.apache.xpath.internal.objects.XObject;
 import entities.*;
 import service.RoomBuildService;
-import service.UserSystemService;
 import service.impl.ControlSystemServiceImpl;
 import service.impl.RoomBuildServiceImpl;
 import service.impl.UserSystemServiceImpl;
@@ -228,7 +226,7 @@ public class Management {
         int endHour=input.nextInt();
         int endmin=input.nextInt();
         boolean state=false;
-        state=user.loanByName(roomName,startHour,startmin,endHour,endmin);
+        state=user.loanByName(roomName, startHour, startmin, endHour, endmin);
         if(state){
             System.out.println("借用成功");
         }else{
@@ -453,7 +451,7 @@ public class Management {
         int endHour=input.nextInt();
         int endmin=input.nextInt();
         boolean state=false;//判断借用是否成功
-        state=user.loanByName(roomName,startHour,startmin,endHour,endmin);
+        state=user.loanByName(, roomName, startHour, startmin, endHour, endmin);
         if(state){
             System.out.println("借用成功");
         }else{

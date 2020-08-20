@@ -89,12 +89,29 @@ public class ControlSystemServiceImpl implements ControlSystemService {
     }
 
     @Override
-    public boolean loanByName(String roomName,
-                              int startHour,int startMinute,
-                              int lastHour,int lastMinute){
-        RoomDao rd = new RoomDaoImpl();
-        rd.queryRoom(roomName);
-        return false;
+    public boolean loanByName(Integer UID, String roomName,
+                              int startHour, int startMinute,
+                              int lastHour, int lastMinute) {
+        if(isLogin) {
+            RentDao rtd = new RentDaoImpl();
+            RoomDao rd = new RoomDaoImpl();
+            AccountDao ad = new AccountDaoImpl();
+            Room thisRoom = rd.queryRoom(roomName);
+            int startTime = startHour * 3600 + startMinute * 60;
+            int lastTime = lastHour * 3600 + lastMinute * 60;
+            if(thisRoom == null){
+                return false;
+            }
+            if (thisRoom.getIsFixedTimeUsed()) {
+                Classroom classroom = (Classroom) thisRoom;
+                return rtd.addRent(0, classroom.getRoomName(),
+                        Integer.toString(startTime), Integer.toString(lastTime), true);
+            } else {
+                MeetingRoom meetingRoom = (MeetingRoom) thisRoom;
+                return rtd.addRent(0, meetingRoom.getRoomName(),
+                        Integer.toString(startTime), Integer.toString(lastTime), false);
+            }
+        }else return false;
     }
 
     @Override
