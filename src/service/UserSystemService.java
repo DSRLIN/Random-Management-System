@@ -21,4 +21,5 @@ public interface UserSystemService extends Loanable,Queryable {
     //显示全部教室信息
     ArrayList<Room> queryAllRoom();
 
+    //获得用户UID
 }

@@ -28,8 +28,15 @@ public abstract class Room {
         //所需要占用的小时与分钟
         long startLong = (startHour * 3600) + (startMinute * 60);
         long endLong = startLong + ((lastHour * 3600)+(lastMinute * 60));
-        this.freeUsingTimeStart.add(startLong);
-        this.freeUsingTimeEnd.add(endLong);
+        if(this.freeUsingTimeStart == null){
+            this.freeUsingTimeStart = new ArrayList<Long>();
+            this.freeUsingTimeStart.add(startLong);
+            this.freeUsingTimeEnd = new ArrayList<Long>();
+            this.freeUsingTimeEnd.add(startLong);
+        }else{
+            this.freeUsingTimeStart.add(startLong);
+            this.freeUsingTimeEnd.add(endLong);
+        }
     }
 
 }

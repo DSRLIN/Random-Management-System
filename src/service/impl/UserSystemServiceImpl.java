@@ -102,6 +102,9 @@ public class UserSystemServiceImpl implements UserSystemService {
             Room thisRoom = rd.queryRoom(roomName);
             int startTime = startHour * 3600 + startMinute * 60;
             int lastTime = lastHour * 3600 + lastMinute * 60;
+            if(thisRoom == null){
+                return false;
+            }
             if (thisRoom.getIsFixedTimeUsed()) {
                 Classroom classroom = (Classroom) thisRoom;
                 Integer userUID = ad.queryUID(curLoginUserName);
@@ -122,6 +125,9 @@ public class UserSystemServiceImpl implements UserSystemService {
         RoomDao rd = new RoomDaoImpl();
         Room thisRoom = rd.queryRoom(roomName);
         //根据不同类型进行转型并判断返回
+        if (thisRoom == null){
+            return false;
+        }
         if(thisRoom.getIsFixedTimeUsed()){
             //可固定是教室
             Classroom classroom = (Classroom)thisRoom;

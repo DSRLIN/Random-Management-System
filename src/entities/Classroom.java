@@ -22,8 +22,15 @@ public class Classroom extends Room {
         //所需要占用的小时与分钟
         long startLong = (startHour * 3600) + (startMinute * 60);
         long endLong = startLong + ((lastHour * 3600)+(lastMinute * 60));
-        this.fixedUsingTimeStart.add(startLong);
-        this.fixedUsingTimeEnd.add(endLong);
+        if(this.fixedUsingTimeStart == null){
+            this.fixedUsingTimeStart = new ArrayList<Long>();
+            this.fixedUsingTimeStart.add(startLong);
+            this.fixedUsingTimeEnd = new ArrayList<Long>();
+            this.fixedUsingTimeEnd.add(startLong);
+        }else{
+            this.fixedUsingTimeStart.add(startLong);
+            this.fixedUsingTimeEnd.add(endLong);
+        }
     }
 
     @Override
