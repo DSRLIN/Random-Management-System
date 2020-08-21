@@ -10,6 +10,10 @@ public class MeetingRoom extends Room {
     }
 
     @Override
+    public boolean getIsMultiMedia() { return this.isMultimedia; }
+    @Override
+    public boolean getIsFixedTimeUsed() { return this.isFixedTimeUsed; }
+    @Override
     public boolean equals(Object obj){
         if(!(obj instanceof MeetingRoom)){
             return false;

@@ -18,5 +18,11 @@ public class RoomBuildServiceImpl implements RoomBuildService {
         RoomDao rd = new RoomDaoImpl();
         return rd.addRoom(room);
     }
+
+    @Override
+    public boolean deleteRoom(String RID) {
+        RoomDao rd = new RoomDaoImpl();
+        return rd.deleteRoom(RID);
+    }
     //TODO:调用dao层接口 在数据库中添加新Room内容
 }

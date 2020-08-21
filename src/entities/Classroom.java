@@ -12,7 +12,10 @@ public class Classroom extends Room {
         this.roomNum = roomNum;
         this.isMultimedia = isMultimedia;
     }
-
+    @Override
+    public boolean getIsMultiMedia() { return this.isMultimedia; }
+    @Override
+    public boolean getIsFixedTimeUsed() { return this.isFixedTimeUsed; }
     public ArrayList<Long> getFixedUsingTimeStart() { return this.fixedUsingTimeStart; }
     public ArrayList<Long> getFixedUsingTimeEnd() { return this.fixedUsingTimeEnd; }
 
