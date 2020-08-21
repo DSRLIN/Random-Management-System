@@ -745,7 +745,7 @@ public class Management {
         ManagerChoose(user);
     }
 
-    //管理员功能实现：删除房间
+    //管理员功能实现：删除房间功能
     private static void deleteRoom(ControlSystemServiceImpl user){
         Scanner input=new Scanner(System.in);
         int returnNum=1;
