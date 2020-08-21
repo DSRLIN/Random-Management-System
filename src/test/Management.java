@@ -226,7 +226,7 @@ public class Management {
         int endHour=input.nextInt();
         int endmin=input.nextInt();
         boolean state=false;
-        state=user.loanByName(0,roomName, startHour, startmin, endHour, endmin);
+        state=user.loanByName(roomName, startHour, startmin, endHour, endmin);
         if(state){
             System.out.println("借用成功");
         }else{
@@ -451,7 +451,7 @@ public class Management {
         int endHour=input.nextInt();
         int endmin=input.nextInt();
         boolean state=false;//判断借用是否成功
-        state=user.loanByName(0, roomName, startHour, startmin, endHour, endmin);
+        state=user.loanByName( roomName, startHour, startmin, endHour, endmin);
         if(state){
             System.out.println("借用成功");
         }else{
@@ -715,14 +715,15 @@ public class Management {
             }
         }
         RoomBuildService roomBuild=new RoomBuildServiceImpl();
-        Room newRoom;
         if(isFixedTimeUsed){
-            newRoom = new Classroom(roomName, roomNum, isMultimedia);
-            newRoom.addNewFreeUsingTime(startHour,startMinute,lastHour,lastMinute);
+            Classroom newClassRoom = new Classroom(roomName, roomNum, isMultimedia);
+            newClassRoom.addNewFreeUsingTime(startHour,startMinute,lastHour,lastMinute);
+            roomBuild.buildClassroom(newClassRoom);
         }else{
-            newRoom = new MeetingRoom(roomName, roomNum);
+            MeetingRoom newMetingRoom;
+            newMetingRoom = new MeetingRoom(roomName, roomNum);
+            roomBuild.buildMeetingRoom(newMetingRoom);
         }
-        roomBuild.buildRoom(newRoom);
         while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
             returnNum=input.nextInt();
