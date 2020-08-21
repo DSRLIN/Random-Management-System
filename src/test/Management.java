@@ -161,6 +161,7 @@ public class Management {
         System.out.println("6：显示全部教室信息");
         System.out.println("7：显示全部用户信息");
         System.out.println("8：增加教室");
+        System.out.println("9：删除教室");
         System.out.println("请根据需要执行的操作，选择序号输入，退出请输入0");
         Scanner input=new Scanner(System.in);
         boolean type = true;
@@ -202,6 +203,10 @@ public class Management {
                     break;
                 case 8:
                     createRoom(user);//创建新教室
+                    type = false;
+                    break;
+                case 9:
+                    deleteRoom(user);//创建新教室
                     type = false;
                     break;
                 default:
@@ -427,7 +432,6 @@ public class Management {
                 if (rm.getIsMultiMedia()) {
                     isMul = "是";
                 } else isMul = "不是";
-                //System.out.println(rm.getRoomName() + "        " + rm.getRoomNum().getValue() + "\t\t\t" + isMul + "\t\t\t\t\t" + pattern + "\t");
                 System.out.printf("%-16s",rm.getRoomName());
                 System.out.printf("%-16s",rm.getRoomNum().getValue());
                 System.out.printf("%-20s",isMul);
@@ -452,7 +456,7 @@ public class Management {
         System.out.println("请输入要借用起始时间（小时  分钟）");
         int startHour=input.nextInt();
         int startmin=input.nextInt();
-        System.out.println("请输入要借用中止时间（小时  分钟）");
+        System.out.println("请输入要借用持续时间（小时  分钟）");
         int endHour=input.nextInt();
         int endmin=input.nextInt();
         boolean state=false;//判断借用是否成功
@@ -597,7 +601,11 @@ public class Management {
                 if (rm.getIsMultiMedia()) {
                     isMul = "是";
                 } else isMul = "不是";
-                System.out.println(rm.getRoomName() + "        " + rm.getRoomNum().getValue() + "\t\t\t" + isMul + "\t\t\t\t\t" + pattern + "\t");
+                System.out.printf("%-16s",rm.getRoomName());
+                System.out.printf("%-16s",rm.getRoomNum().getValue());
+                System.out.printf("%-20s",isMul);
+                System.out.printf("%-16s",pattern);
+                System.out.println();
             }
         }
         while(returnNum!=0){
@@ -724,10 +732,57 @@ public class Management {
             Classroom newClassRoom = new Classroom(roomName, roomNum, isMultimedia);
             newClassRoom.addNewFixedUsingTime(startHour,startMinute,lastHour,lastMinute);
             roomBuild.buildClassroom(newClassRoom);
+            System.out.println("成功创建房间号码为"+roomName+"。房间容纳人数为"+roomNum+"的教室");
         }else{
             MeetingRoom newMetingRoom;
             newMetingRoom = new MeetingRoom(roomName, roomNum);
             roomBuild.buildMeetingRoom(newMetingRoom);
+        }
+        while(returnNum!=0){//返回上一级
+            System.out.println("请输入0返回");
+            returnNum=input.nextInt();
+        }
+        ManagerChoose(user);
+    }
+
+    //管理员功能实现：删除房间功能
+    private static void deleteRoom(ControlSystemServiceImpl user){
+        Scanner input=new Scanner(System.in);
+        int returnNum=1;
+        System.out.println("欢迎使用删除房间功能");
+        //showAllRoom(user);
+        System.out.println("全部教室信息显示如下：");
+        List<Room> lr=user.queryAllRoom();
+        if(lr==null){
+            System.out.println("教室信息为空");
+        }else {
+            System.out.println("房间号码\t\t房间可容纳人数\t\t房间是否为多媒体教室\t房间类别（教室/会议室）");
+            for (Room room : lr) {
+                Room rm = (Room) room;
+                String pattern = null;
+                String isMul = null;
+                if (rm.getIsFixedTimeUsed())
+                    pattern = "教室";
+                else pattern = "会议室";
+                if (rm.getIsMultiMedia()) {
+                    isMul = "是";
+                } else isMul = "不是";
+                System.out.printf("%-16s",rm.getRoomName());
+                System.out.printf("%-16s",rm.getRoomNum().getValue());
+                System.out.printf("%-20s",isMul);
+                System.out.printf("%-16s",pattern);
+                System.out.println();
+            }
+        }
+        RoomBuildService roomBuild=new RoomBuildServiceImpl();
+        System.out.println("请输入要删除的房间的编号");
+        String delID=input.next();
+        boolean judgeSuccess=false;
+        judgeSuccess=roomBuild.deleteRoom(delID);
+        if(judgeSuccess){
+            System.out.println("删除成功");
+        }else{
+            System.out.println("删除失败");
         }
         while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
