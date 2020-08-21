@@ -427,7 +427,12 @@ public class Management {
                 if (rm.getIsMultiMedia()) {
                     isMul = "是";
                 } else isMul = "不是";
-                System.out.println(rm.getRoomName() + "        " + rm.getRoomNum().getValue() + "\t\t\t" + isMul + "\t\t\t\t\t" + pattern + "\t");
+                //System.out.println(rm.getRoomName() + "        " + rm.getRoomNum().getValue() + "\t\t\t" + isMul + "\t\t\t\t\t" + pattern + "\t");
+                System.out.printf("%-16s",rm.getRoomName());
+                System.out.printf("%-16s",rm.getRoomNum().getValue());
+                System.out.printf("%-20s",isMul);
+                System.out.printf("%-16s",pattern);
+                System.out.println();
             }
         }
         while(returnNum!=0){//返回上一级
@@ -700,10 +705,10 @@ public class Management {
             if (isFix.equals("y")) {
                 judge2 = false;
                 isFixedTimeUsed=true;
-                System.out.println("请输入可被占用的起始时间：小时    分钟");
+                System.out.println("请输入固定占用的起始时间：小时    分钟");
                 startHour=input.nextInt();
                 startMinute=input.nextInt();
-                System.out.println("请输入可被占用的持续时间：小时    分钟");
+                System.out.println("请输入固定占用的持续时间：小时    分钟");
                 lastHour=input.nextInt();
                 lastMinute=input.nextInt();
             }else if(isFix.equals("n")){
@@ -717,7 +722,7 @@ public class Management {
         RoomBuildService roomBuild=new RoomBuildServiceImpl();
         if(isFixedTimeUsed){
             Classroom newClassRoom = new Classroom(roomName, roomNum, isMultimedia);
-            newClassRoom.addNewFreeUsingTime(startHour,startMinute,lastHour,lastMinute);
+            newClassRoom.addNewFixedUsingTime(startHour,startMinute,lastHour,lastMinute);
             roomBuild.buildClassroom(newClassRoom);
         }else{
             MeetingRoom newMetingRoom;
