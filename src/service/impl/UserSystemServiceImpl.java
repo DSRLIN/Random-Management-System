@@ -131,7 +131,7 @@ public class UserSystemServiceImpl implements UserSystemService {
         if(thisRoom.getIsFixedTimeUsed()){
             //可固定是教室
             Classroom classroom = (Classroom)thisRoom;
-            if(classroom.getFixedUsingTimeStart() == null){
+            if(classroom.getFixedUsingTimeStart() == null&&classroom.getFreeUsingTimeStart() == null){
                 return false;
             }
             long useTime = useHour*3600+useMinute*60;
@@ -140,9 +140,6 @@ public class UserSystemServiceImpl implements UserSystemService {
                         useTime < classroom.getFixedUsingTimeEnd().get(i))){
                     return true;
                 }
-            }
-            if(classroom.getFreeUsingTimeStart() == null){
-                return false;
             }
             for (int k = 0; k < classroom.getFreeUsingTimeStart().size(); k++) {
                 if((useTime > classroom.getFreeUsingTimeStart().get(k)&&
