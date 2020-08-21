@@ -131,12 +131,18 @@ public class UserSystemServiceImpl implements UserSystemService {
         if(thisRoom.getIsFixedTimeUsed()){
             //可固定是教室
             Classroom classroom = (Classroom)thisRoom;
+            if(classroom.getFixedUsingTimeStart() == null){
+                return false;
+            }
             long useTime = useHour*3600+useMinute*60;
             for (int i = 0; i < classroom.getFixedUsingTimeStart().size(); i++) {
                 if((useTime > classroom.getFixedUsingTimeStart().get(i)&&
                         useTime < classroom.getFixedUsingTimeEnd().get(i))){
                     return true;
                 }
+            }
+            if(classroom.getFreeUsingTimeStart() == null){
+                return false;
             }
             for (int k = 0; k < classroom.getFreeUsingTimeStart().size(); k++) {
                 if((useTime > classroom.getFreeUsingTimeStart().get(k)&&
@@ -147,6 +153,9 @@ public class UserSystemServiceImpl implements UserSystemService {
         }
         else {
             MeetingRoom meetingRoom = (MeetingRoom)thisRoom;
+            if(meetingRoom.getFreeUsingTimeStart() == null){
+                return false;
+            }
             long useTime = useHour*3600+useMinute*60;
             for (int i = 0; i < meetingRoom.getFreeUsingTimeStart().size(); i++) {
                 if((useTime > meetingRoom.getFreeUsingTimeStart().get(i)&&
