@@ -92,7 +92,7 @@ public class UserSystemServiceImpl implements UserSystemService {
     }
 
     @Override
-    public boolean loanByName(Integer UID, String roomName,
+    public boolean loanByName(String roomName,
                               int startHour, int startMinute,
                               int lastHour, int lastMinute) {
         if(isLogin) {
