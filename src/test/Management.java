@@ -226,7 +226,7 @@ public class Management {
         System.out.println("请输入要借用起始时间（小时  分钟）");
         int startHour=input.nextInt();
         int startmin=input.nextInt();
-        System.out.println("请输入要借用中止时间（小时  分钟）");
+        System.out.println("请输入要借用终止时间（小时  分钟）");
         int endHour=input.nextInt();
         int endmin=input.nextInt();
         boolean state=false;
@@ -404,7 +404,11 @@ public class Management {
                 if (rm.getIsMultiMedia()) {
                     isMul = "是";
                 } else isMul = "不是";
-                System.out.println(rm.getRoomName() + "        " + rm.getRoomNum().getValue()+ "\t\t\t" + isMul + "\t\t\t\t\t" + pattern + "\t");
+                System.out.printf("%-16s",rm.getRoomName());
+                System.out.printf("%-16s",rm.getRoomNum().getValue());
+                System.out.printf("%-20s",isMul);
+                System.out.printf("%-16s",pattern);
+                System.out.println();
             }
         }
         while(returnNum!=0){//返回上一级
@@ -512,14 +516,21 @@ public class Management {
             System.out.println("借用记录为空");
         }else {
             System.out.println("借用列表如下");
-            System.out.println("借用记录id\t用户id\t房间id\t借用起始时间\t借用持续时间\t借用方式");
+            System.out.println("借用记录id\t用户id\t房间id\t借用起始时间\t借用持续时间（分钟）\t借用方式");
             for (RentAction rentAction : list) {
                 RentAction ra = (RentAction) rentAction;
                 String pattern = null;
                 if (ra.isFixed)
                     pattern = "固定";
                 else pattern = "非固定";
-                System.out.println(ra.RentNumber + "\t\t" + ra.UID + "\t" + ra.RID + "\t" + ra.start_time + "\t" + ra.last_time + "\t" + pattern);
+                //System.out.println(ra.RentNumber + "\t\t" + ra.UID + "\t" + ra.RID + "\t" + ra.start_time + "\t" + ra.last_time + "\t" + pattern);
+                System.out.printf("%-13s",ra.RentNumber);
+                System.out.printf("%-7s",ra.UID);
+                System.out.printf("%-10s",ra.RID);
+                System.out.printf("%-16s",ra.start_time);
+                System.out.printf("%-14s",ra.last_time);
+                System.out.printf("%-10s",pattern);
+                System.out.println();
             }
             System.out.println("请输入借用教室取消的借用记录id");
             int id = input.nextInt();
@@ -644,9 +655,11 @@ public class Management {
         int returnNum=1;//返回上一级
         System.out.println("全部用户信息");
         Set keys=user.queryAllUsers().keySet();
-        System.out.println("用户ID\t用户名称\t用户密码");
+        System.out.println("用户ID\t\t\t用户名称");
         for(Object key:keys){
-            System.out.println(key+"\t"+user.queryAllUsers().get(key)+"\t"+user.queryAllUsers().get(key));
+            System.out.printf("%-16s",key);
+            System.out.printf("%-16s",user.queryAllUsers().get(key));
+            System.out.println();
         }
         while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
