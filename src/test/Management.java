@@ -293,15 +293,22 @@ public class Management {
                 System.out.printf("%-16s",ra.start_time);
                 System.out.printf("%-14s",ra.last_time);
                 System.out.printf("%-10s",pattern);
+                System.out.println();
             }
             System.out.println("请输入借用教室取消的借用记录id");
             int id = input.nextInt();
 
-            for (RentAction rentAction : list) {//遍历一遍找到删除
+            boolean success=false;
+            for (RentAction rentAction : list) {
                 RentAction ra1 = (RentAction) rentAction;
                 if (ra1.RentNumber == id) {
                     user.cancel(ra1);
+                    System.out.println("借用取消成功");
+                    success=true;
                 }
+            }
+            if(!success){
+                System.out.println("借用取消失败");
             }
         }
         while(returnNum!=0){//返回上一级
@@ -316,7 +323,7 @@ public class Management {
         Scanner input=new Scanner(System.in);
         int returnNum=1;//返回上一级
         int sitnum=0;//记录座位数量
-        boolean isMultimedia=false;//是否多媒体
+        boolean isClassroom=false;//是否为教室
         RoomNumType roomNum =null;//记录类型
         System.out.println("欢迎使用查询推荐功能");
         System.out.println("请输入座位数量：40/60/200");
@@ -349,21 +356,22 @@ public class Management {
         System.out.println("请输入要借用中止时间（小时  分钟）");
         int endHour=input.nextInt();
         int endmin=input.nextInt();
-        System.out.println("请输入是否为多媒体y/n");
+        System.out.println("请输入是否为教室y/n");
+        System.out.println("教室（y）   会议室（n）");
         while (type1) {//循环保证输入正确
             String isMul=input.next();
             if (isMul.equals("y")) {
                 type1 = false;
-                isMultimedia=true;
+                isClassroom=true;
             }else if(isMul.equals("n")){
                 type1 = false;
-                isMultimedia=false;
+                isClassroom=false;
             } else {
             System.out.println("输入有误,请重新输入");
             type1 = true;
             }
         }
-        List<Room> lr=user.queryRecommendResult(roomNum,startHour,startmin,endHour,endmin,isMultimedia);
+        List<Room> lr=user.queryRecommendResult(roomNum,startHour,startmin,endHour,endmin,isClassroom);
         if(lr==null){//空表返回上一级
             System.out.println("查询结果为空");
         }else {
@@ -471,7 +479,7 @@ public class Management {
         System.out.println("请输入要借用起始时间（小时  分钟）");
         int startHour=input.nextInt();
         int startmin=input.nextInt();
-        System.out.println("请输入要借用持续时间（小时  分钟）");
+        System.out.println("请输入要借用中止时间（小时  分钟）");
         int endHour=input.nextInt();
         int endmin=input.nextInt();
         boolean state=false;//判断借用是否成功
@@ -532,7 +540,6 @@ public class Management {
                 if (ra.isFixed)
                     pattern = "固定";
                 else pattern = "非固定";
-                //System.out.println(ra.RentNumber + "\t\t" + ra.UID + "\t" + ra.RID + "\t" + ra.start_time + "\t" + ra.last_time + "\t" + pattern);
                 System.out.printf("%-13s",ra.RentNumber);
                 System.out.printf("%-7s",ra.UID);
                 System.out.printf("%-10s",ra.RID);
@@ -544,11 +551,17 @@ public class Management {
             System.out.println("请输入借用教室取消的借用记录id");
             int id = input.nextInt();
 
+            boolean success=false;
             for (RentAction rentAction : list) {
                 RentAction ra1 = (RentAction) rentAction;
                 if (ra1.RentNumber == id) {
                     user.cancel(ra1);
+                    System.out.println("借用取消成功");
+                    success=true;
                 }
+            }
+            if(!success){
+                System.out.println("借用取消失败");
             }
         }
         while(returnNum!=0){
@@ -563,7 +576,7 @@ public class Management {
         Scanner input=new Scanner(System.in);
         int returnNum=1;//返回上一级
         int sitnum=0;//座位数量
-        boolean isMultimedia=false;
+        boolean isClassroom=false;
         RoomNumType roomNum =null;//记录类型
         System.out.println("欢迎使用查询推荐功能");
         System.out.println("请输入你想要的座位数量：40/60/200");
@@ -596,21 +609,22 @@ public class Management {
         System.out.println("请输入要借用持续时间（小时  分钟）");
         int endHour=input.nextInt();
         int endmin=input.nextInt();
-        System.out.println("请输入是否为多媒体y/n");
+        System.out.println("请输入是否为教室y/n");
+        System.out.println("教室（y）   会议室（n）");
         while (type1) {
             String isMul=input.next();
             if (isMul.equals("y")) {
                 type1 = false;
-                isMultimedia=true;
+                isClassroom=true;
             }else if(isMul.equals("n")){
                 type1 = false;
-                isMultimedia=false;
+                isClassroom=false;
             } else {
                 System.out.println("输入有误,请重新输入");
                 type1 = true;
             }
         }
-        List<Room> lr=user.queryRecommendResult(roomNum,startHour,startmin,endHour,endmin,isMultimedia);
+        List<Room> lr=user.queryRecommendResult(roomNum,startHour,startmin,endHour,endmin,isClassroom);
         if(lr==null){
             System.out.println("查询结果为空");
         }else {
