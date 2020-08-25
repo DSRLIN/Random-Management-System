@@ -48,21 +48,9 @@ public class Classroom extends Room {
     }
     @Override
     public boolean equals(Object obj){
-        if(!(obj instanceof Classroom)){
+        if(!(obj instanceof MeetingRoom)){
             return false;
         }
-        if(this == obj){
-            return true;
-        }
-        Classroom cls = (Classroom)obj;
-        return roomNum.equals(cls.roomNum)&&
-               roomName.equals(cls.roomName)&&
-               fixedUsingTimeStart.equals(cls.fixedUsingTimeStart)&&
-               fixedUsingTimeEnd.equals(cls.fixedUsingTimeEnd)&&
-               freeUsingTimeStart.equals(cls.freeUsingTimeStart)&&
-               freeUsingTimeEnd.equals(cls.freeUsingTimeEnd)&&
-               isFixedTimeUsed == cls.isFixedTimeUsed&&
-               isMultimedia == cls.isMultimedia;
-
+        return this == obj;
     }
 }

@@ -18,16 +18,6 @@ public class MeetingRoom extends Room {
         if(!(obj instanceof MeetingRoom)){
             return false;
         }
-        if(this == obj){
-            return true;
-        }
-        MeetingRoom mtr = (MeetingRoom)obj;
-        return roomNum.equals(mtr.roomNum)&&
-                roomName.equals(mtr.roomName)&&
-                freeUsingTimeStart.equals(mtr.freeUsingTimeStart)&&
-                freeUsingTimeEnd.equals(mtr.freeUsingTimeEnd)&&
-                isFixedTimeUsed == mtr.isFixedTimeUsed&&
-                isMultimedia == mtr.isMultimedia;
-
+        return this == obj;
     }
 }
