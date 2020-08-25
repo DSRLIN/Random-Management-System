@@ -69,7 +69,14 @@ public class RentDaoImpl implements RentDao {
             //若插入成功 则再次查表获得操作ID并返回结果
             int count = pStmt.getUpdateCount();
             if(count > 0){
-                rentNumber = queryRentNumber(rentAction);
+                /* 偶发数据库连接关闭错误的原理:
+                 *      当在try块内直接调用自身方法时
+                 *      与sql执行相关的函数会在结束后关闭对象
+                 *      但关闭的是this的对象 导致返回到调用点时 对象为已关闭状态
+                 *      此时再去关闭这些对象就会导致报错
+                 */
+                RentDao rentDao = new RentDaoImpl();
+                rentNumber = rentDao.queryRentNumber(rentAction);
             }
         }catch (Exception e){
             e.printStackTrace();
