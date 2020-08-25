@@ -236,10 +236,10 @@ public class RoomDaoImpl implements RoomDao {
             tempSize = RoomNumType.getEnum(rs.getInt("SIZE"));
             tempIM = rs.getBoolean("is_multimedia");
             //根据类别生成子类对象
-            if(tempType.equals("教室")){
-                tempRoom = new Classroom(tempRID,tempSize,tempIM);
-            }else{
+            if(tempType.equals("会议室")){
                 tempRoom = new MeetingRoom(tempRID,tempSize);
+            }else{
+                tempRoom = new Classroom(tempRID,tempSize,tempIM);
             }
             //存入列表
             roomList.add(tempRoom);
