@@ -51,8 +51,7 @@ public class RentDaoImpl implements RentDao {
 
     @Override
     public Integer addRent(RentAction rentAction) {
-        if(queryRentNumber(rentAction) == null) return null;
-        //检查用户及房间是否存在
+        //接口被调用时的隐含条件:UID及RID均存在
         AccountDao accountDao = new AccountDaoImpl();
         if(accountDao.queryAccount(rentAction.UID) == null) return null;
         RoomDao roomDao = new RoomDaoImpl();

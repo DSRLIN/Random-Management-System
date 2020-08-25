@@ -20,7 +20,7 @@ public class BaseDao {
         URL = "jdbc:sqlite:" + System.getProperty("user.dir") + "\\DataBase\\RMS-room.sqlite";
         USER = "root";
         PASSWORD = "root";
-        System.out.println("Debug::URL\t" + URL);
+        //System.out.println("Debug::URL\t" + URL);
     }
 
     /**
@@ -45,7 +45,7 @@ public class BaseDao {
      * @param pStmt 预编译语句对象
      * @param rs 结果集对象
      */
-    public static void closeObject(Connection conn, PreparedStatement pStmt, ResultSet rs){
+    public static synchronized void closeObject(Connection conn, PreparedStatement pStmt, ResultSet rs){
         try{
             if(rs != null) rs.close();
             if(pStmt != null) pStmt.close();
