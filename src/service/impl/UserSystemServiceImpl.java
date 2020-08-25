@@ -48,6 +48,9 @@ public class UserSystemServiceImpl implements UserSystemService {
                 String roomName = rm.getRoomName();
                 if(isUsed(roomName,startHour,startMinute,endHour,endMinute)){
                     roomNumList.remove(rm);
+                    if(roomNumList.size() == 0){
+                        return null;
+                    }
                 }
             }
             return roomNumList;
@@ -60,7 +63,7 @@ public class UserSystemServiceImpl implements UserSystemService {
                               int startHour, int startMinute,
                               int lastHour, int lastMinute) {
         if(isLogin) {
-            if(isUsed(roomName,startHour,startMinute,startHour+lastHour,startMinute+lastMinute)){
+            if(isUsed(roomName,startHour,startMinute,lastHour,lastMinute)){
                 return false;
             }
             RentDao rtd = new RentDaoImpl();
@@ -76,7 +79,7 @@ public class UserSystemServiceImpl implements UserSystemService {
                 Classroom classroom = (Classroom) thisRoom;
                 Integer userUID = ad.queryUID(curLoginUserName);
                 return rtd.addRent(userUID, classroom.getRoomName(),
-                        Integer.toString(startTime), Integer.toString(lastTime), true);
+                        Integer.toString(startTime), Integer.toString(lastTime), false);
             } else {
                 MeetingRoom meetingRoom = (MeetingRoom) thisRoom;
                 Integer userUID = ad.queryUID(curLoginUserName);

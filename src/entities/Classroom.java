@@ -1,6 +1,8 @@
 package entities;
 
 import java.util.ArrayList;
+import dao.*;
+import dao.impl.RentDaoImpl;
 
 public class Classroom extends Room {
     protected boolean isFixedTimeUsed = true; //可否固定占用
@@ -25,6 +27,8 @@ public class Classroom extends Room {
         //所需要占用的小时与分钟
         long startLong = (startHour * 3600) + (startMinute * 60);
         long endLong = startLong + ((lastHour * 3600)+(lastMinute * 60));
+        RentDao rd = new RentDaoImpl();
+        rd.addRent(12,this.roomName, Long.toString(startLong),Long.toString(endLong),true);
         if(this.fixedUsingTimeStart == null){
             this.fixedUsingTimeStart = new ArrayList<Long>();
             this.fixedUsingTimeStart.add(startLong);

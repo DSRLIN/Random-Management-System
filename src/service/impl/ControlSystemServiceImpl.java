@@ -56,7 +56,7 @@ public class ControlSystemServiceImpl implements ControlSystemService {
                               int startHour, int startMinute,
                               int lastHour, int lastMinute) {
         if(isLogin) {
-            if(isUsed(roomName,startHour,startMinute,startHour+lastHour,startMinute+lastMinute)){
+            if(isUsed(roomName,startHour,startMinute,lastHour,lastMinute)){
                 return false;
             }
             RentDao rtd = new RentDaoImpl();
@@ -71,7 +71,7 @@ public class ControlSystemServiceImpl implements ControlSystemService {
             if (thisRoom.getIsFixedTimeUsed()) {
                 Classroom classroom = (Classroom) thisRoom;
                 return rtd.addRent(12, classroom.getRoomName(),
-                        Integer.toString(startTime), Integer.toString(lastTime), true);
+                        Integer.toString(startTime), Integer.toString(lastTime), false);
             } else {
                 MeetingRoom meetingRoom = (MeetingRoom) thisRoom;
                 return rtd.addRent(12, meetingRoom.getRoomName(),
