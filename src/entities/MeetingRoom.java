@@ -18,6 +18,7 @@ public class MeetingRoom extends Room {
         if(!(obj instanceof MeetingRoom)){
             return false;
         }
-        return this == obj;
+        MeetingRoom m = (MeetingRoom)obj;
+        return this.roomName.equals(m.roomName);
     }
 }

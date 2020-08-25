@@ -48,9 +48,10 @@ public class Classroom extends Room {
     }
     @Override
     public boolean equals(Object obj){
-        if(!(obj instanceof MeetingRoom)){
+        if(!(obj instanceof Classroom)){
             return false;
         }
-        return this == obj;
+        Classroom c = (Classroom)obj;
+        return this.roomName.equals(c.roomName);
     }
 }

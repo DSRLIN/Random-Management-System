@@ -54,6 +54,9 @@ public class UserSystemServiceImpl implements UserSystemService {
                               int startHour, int startMinute,
                               int lastHour, int lastMinute) {
         if(isLogin) {
+            if(isUsed(roomName,startHour,startMinute,startHour+lastHour,startMinute+lastMinute)){
+                return false;
+            }
             RentDao rtd = new RentDaoImpl();
             RoomDao rd = new RoomDaoImpl();
             AccountDao ad = new AccountDaoImpl();
@@ -84,6 +87,9 @@ public class UserSystemServiceImpl implements UserSystemService {
         Room thisRoom = rd.queryRoom(roomName);
         RentDao rtd = new RentDaoImpl();
         ArrayList<RentAction> rta = rtd.queryRentList(roomName);
+        if(rta==null){
+            return false;
+        }
         jointMachine j = new jointMachine();
         comparator c = new comparator();
         if (thisRoom == null){
