@@ -102,7 +102,6 @@ public class Management {
         }while (!type);
     }
 
-
     //用户界面
     private static void UserChoose(UserSystemServiceImpl user){
         System.out.println("您已登录为用户,可以进行如下操作");
@@ -254,12 +253,15 @@ public class Management {
         System.out.println("请输入要查询的起始时间（小时  分钟）");
         int loanHour=input.nextInt();
         int loanmin=input.nextInt();
+        System.out.println("请输入要查询的结束时间（小时  分钟）");
+        int endHour=input.nextInt();
+        int endmin=input.nextInt();
         boolean state=false;
-        state = user.isUsed(roomName,loanHour,loanmin, , );
+        state = user.isUsed(roomName,loanHour,loanmin,endHour,endmin);
         if(state){
-            System.out.println("该房间在"+loanHour+"小时"+loanmin+"分钟被占用");
+            System.out.println("该房间在"+loanHour+"小时"+loanmin+"分钟到"+endHour+"小时"+endmin+"分钟被占用");
         }else{
-            System.out.println("该房间在"+loanHour+"小时"+loanmin+"分钟没有被占用");
+            System.out.println("该房间在"+loanHour+"小时"+loanmin+"分钟到"+endHour+"小时"+endmin+"分钟没有被占用");
         }
         while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
@@ -483,12 +485,15 @@ public class Management {
         System.out.println("请输入要查询的起始时间（小时  分钟）");
         int loanHour=input.nextInt();
         int loanmin=input.nextInt();
+        System.out.println("请输入要查询的结束时间（小时  分钟）");
+        int endHour=input.nextInt();
+        int endmin=input.nextInt();
         boolean state=false;//判断是否被占用
-        state = user.isUsed(roomName,loanHour,loanmin, , );
+        state = user.isUsed(roomName,loanHour,loanmin,endHour,endmin);
         if(state){
-            System.out.println("该房间在"+loanHour+"小时"+loanmin+"分钟被占用");
+            System.out.println("该房间在"+loanHour+"小时"+loanmin+"分钟到"+endHour+"小时"+endmin+"分钟被占用");
         }else{
-            System.out.println("该房间在"+loanHour+"小时"+loanmin+"分钟没有被占用");
+            System.out.println("该房间在"+loanHour+"小时"+loanmin+"分钟到"+endHour+"小时"+endmin+"分钟没有被占用");
         }
         while(returnNum!=0){//返回上一级
             System.out.println("请输入0返回");
@@ -541,7 +546,7 @@ public class Management {
         boolean isMultimedia=false;
         RoomNumType roomNum =null;//记录类型
         System.out.println("欢迎使用查询推荐功能");
-        System.out.println("请输入座位数量：40/60/200");
+        System.out.println("请输入你想要的座位数量：40/60/200");
         boolean type = true;//循环保证座位输入正确的判别
         boolean type1 = true;////循环保证判断多媒体输入正确
         while (type) {
@@ -568,7 +573,7 @@ public class Management {
         System.out.println("请输入要借用起始时间（小时  分钟）");
         int startHour=input.nextInt();
         int startmin=input.nextInt();
-        System.out.println("请输入要借用中止时间（小时  分钟）");
+        System.out.println("请输入要借用持续时间（小时  分钟）");
         int endHour=input.nextInt();
         int endmin=input.nextInt();
         System.out.println("请输入是否为多媒体y/n");
@@ -692,25 +697,25 @@ public class Management {
                     break;
             }
         }
-        System.out.println("请输入是否为多媒体y/n");
-        while (judge1) {
-            String isMul=input.next();
-            if (isMul.equals("y")) {
-                judge1 = false;
-                isMultimedia=true;
-            }else if(isMul.equals("n")){
-                judge1 = false;
-                isMultimedia=false;
-            } else {
-                System.out.println("输入有误,请重新输入");
-                judge1 = true;
-            }
-        }
         System.out.println("请输入是否为教室y/n");
         System.out.println("y表示为教室，n表示为会议室");
         while (judge2) {
             String isFix=input.next();
             if (isFix.equals("y")) {
+                System.out.println("请输入是否为多媒体y/n");
+                while (judge1) {
+                    String isMul=input.next();
+                    if (isMul.equals("y")) {
+                        judge1 = false;
+                        isMultimedia=true;
+                    }else if(isMul.equals("n")){
+                        judge1 = false;
+                        isMultimedia=false;
+                    } else {
+                        System.out.println("输入有误,请重新输入");
+                        judge1 = true;
+                    }
+                }
                 judge2 = false;
                 isFixedTimeUsed=true;
                 System.out.println("请输入固定占用的起始时间：小时    分钟");
