@@ -280,7 +280,7 @@ public class Management {
             System.out.println("借用记录为空");
         }else {
             System.out.println("借用列表如下");
-            System.out.println("借用记录id\t用户id\t房间id\t借用起始时间\t借用持续时间（分钟）\t借用方式");
+            System.out.println("借用记录id\t用户id\t房间id\t借用起始时间\t借用结束时间\t借用方式");
             for (RentAction rentAction : list) {
                 RentAction ra = (RentAction) rentAction;
                 String pattern = null;
@@ -533,7 +533,7 @@ public class Management {
             System.out.println("借用记录为空");
         }else {
             System.out.println("借用列表如下");
-            System.out.println("借用记录id\t用户id\t房间id\t借用起始时间\t借用持续时间（分钟）\t借用方式");
+            System.out.println("借用记录id\t用户id\t房间id\t借用起始时间\t借用结束时间\t借用方式");
             for (RentAction rentAction : list) {
                 RentAction ra = (RentAction) rentAction;
                 String pattern = null;
