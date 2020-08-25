@@ -64,7 +64,7 @@ public class AccountDaoImpl implements AccountDao {
     @Override
     public boolean deleteAccount(String account) {
         //大致过程与注册一致
-        if(queryUID(account) != null) return false;
+        if(queryUID(account) == null) return false;
         try {
             conn = BaseDao.getConnection();
             pStmt = conn.prepareStatement(deleteSQL);
