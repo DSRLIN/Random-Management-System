@@ -8,6 +8,8 @@ import dao.impl.RentDaoImpl;
 import dao.impl.RoomDaoImpl;
 import entities.*;
 import service.UserSystemService;
+import tools.comparator;
+import tools.jointMachine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,67 +25,23 @@ public class UserSystemServiceImpl implements UserSystemService {
                                       int startHour, int startMinute,
                                       int lastHour, int lastMinute,
                                       boolean isMultimedia) {
-        if(isLogin){
-            long startTime = startHour*3600+startMinute*60;
-            long lastTime = lastHour*3600+lastMinute+60;
-            long useTime = startTime+lastTime;
+        if(isLogin) {
+            int endHour = startHour + lastHour;
+            int endMinute = startMinute + lastMinute;
+            if(endMinute>=60){
+                endMinute -= 60;
+                endHour += 1;
+            }
             RoomDao rd = new RoomDaoImpl();
+            RentDao rtd = new RentDaoImpl();
             List<Room> roomNumList = rd.queryRoomList(roomNum);
             List<Room> roomMultimediaList = rd.queryRoomList(isMultimedia);
             //注：最后的返回项是roomNumList
             roomNumList.retainAll(roomMultimediaList);
-            for (int i = 0; i < roomNumList.size(); i++) {
-                //教室类型的
-                if(roomNumList.get(i).getIsFixedTimeUsed()){
-                    Classroom tmpCls = (Classroom) roomNumList.get(i);
-                    //循环只要找到true立刻鲨掉
-                    AtomicBoolean secondKey = new AtomicBoolean(true); //如果第一个循环未找到 则进入第二个循环
-                    for (int j = 0; j < tmpCls.getFixedUsingTimeStart().size(); j++) {
-                        if((startTime > tmpCls.getFixedUsingTimeStart().get(j)&&
-                            startTime < tmpCls.getFixedUsingTimeEnd().get(j))||(
-                            useTime > tmpCls.getFixedUsingTimeStart().get(j)&&
-                            useTime < tmpCls.getFixedUsingTimeEnd().get(j))||(
-                            tmpCls.getFixedUsingTimeStart().get(j) > startTime&&
-                            tmpCls.getFixedUsingTimeStart().get(j) < useTime)||(
-                            tmpCls.getFixedUsingTimeEnd().get(j) > startTime&&
-                            tmpCls.getFixedUsingTimeEnd().get(j) < useTime)) {
-                            roomNumList.remove(i);
-                            secondKey.set(false);
-                            break;
-                        }
-                        if(secondKey.get()){
-                            for (int k = 0; k < tmpCls.getFreeUsingTimeStart().size(); k++) {
-                                if((startTime > tmpCls.getFreeUsingTimeStart().get(k)&&
-                                    startTime < tmpCls.getFreeUsingTimeEnd().get(k))||(
-                                    useTime > tmpCls.getFreeUsingTimeStart().get(k)&&
-                                    useTime < tmpCls.getFreeUsingTimeEnd().get(k))||(
-                                    tmpCls.getFreeUsingTimeStart().get(k) > startTime&&
-                                    tmpCls.getFreeUsingTimeStart().get(k) < useTime)||(
-                                    tmpCls.getFreeUsingTimeEnd().get(k) > startTime&&
-                                    tmpCls.getFreeUsingTimeEnd().get(k) < useTime)) {
-                                    roomNumList.remove(i);
-                                    break;
-                                }
-                            }
-
-                        }
-                    }
-                }else{
-                    MeetingRoom tmpMtr = (MeetingRoom) roomNumList.get(i);
-                    //循环只要找到true立刻鲨掉
-                    for (int k = 0; k < tmpMtr.getFreeUsingTimeStart().size(); k++) {
-                        if((startTime > tmpMtr.getFreeUsingTimeStart().get(k)&&
-                            startTime < tmpMtr.getFreeUsingTimeEnd().get(k))||(
-                            useTime > tmpMtr.getFreeUsingTimeStart().get(k)&&
-                            useTime < tmpMtr.getFreeUsingTimeEnd().get(k))||(
-                            tmpMtr.getFreeUsingTimeStart().get(k) > startTime&&
-                            tmpMtr.getFreeUsingTimeStart().get(k) < useTime)||(
-                            tmpMtr.getFreeUsingTimeEnd().get(k) > startTime&&
-                            tmpMtr.getFreeUsingTimeEnd().get(k) < useTime)) {
-                            roomNumList.remove(i);
-                            break;
-                        }
-                    }
+            for (Room rm:roomNumList) {
+                String roomName = rm.getRoomName();
+                if(isUsed(roomName,startHour,startMinute,endHour,endMinute)){
+                    roomNumList.remove(rm);
                 }
             }
             return roomNumList;
@@ -121,43 +79,54 @@ public class UserSystemServiceImpl implements UserSystemService {
 
 
     @Override
-    public boolean isUsed(String roomName,int useHour, int useMinute) {
+    public boolean isUsed(String roomName, int startHour, int startMinute, int endHour, int endMinute) {
         RoomDao rd = new RoomDaoImpl();
         Room thisRoom = rd.queryRoom(roomName);
-        //根据不同类型进行转型并判断返回
+        RentDao rtd = new RentDaoImpl();
+        ArrayList<RentAction> rta = rtd.queryRentList(roomName);
+        jointMachine j = new jointMachine();
+        comparator c = new comparator();
         if (thisRoom == null){
             return false;
         }
+        //根据不同类型进行转型并判断返回
         if(thisRoom.getIsFixedTimeUsed()){
             //可固定是教室
             Classroom classroom = (Classroom)thisRoom;
-            if(classroom.getFixedUsingTimeStart() == null&&classroom.getFreeUsingTimeStart() == null){
-                return false;
-            }
-            long useTime = useHour*3600+useMinute*60;
-            for (int i = 0; i < classroom.getFixedUsingTimeStart().size(); i++) {
-                if((useTime > classroom.getFixedUsingTimeStart().get(i)&&
-                        useTime < classroom.getFixedUsingTimeEnd().get(i))){
-                    return true;
+            classroom = j.joint(classroom,rta);
+            long startTime = (startHour*3600) + (startMinute*60);
+            long endTime = (endHour*3600) + (endMinute*60);
+            if(classroom.getFixedUsingTimeStart()!=null){
+                for (int i = 0; i < classroom.getFixedUsingTimeStart().size(); i++) {
+                    long cFStartTime = classroom.getFixedUsingTimeStart().indexOf(i);
+                    long cFEndTime = classroom.getFixedUsingTimeEnd().indexOf(i);
+                    if(c.compare(startTime,endTime,cFStartTime,cFEndTime)){
+                        return true;
+                    }
                 }
             }
-            for (int k = 0; k < classroom.getFreeUsingTimeStart().size(); k++) {
-                if((useTime > classroom.getFreeUsingTimeStart().get(k)&&
-                        useTime < classroom.getFreeUsingTimeEnd().get(k))){
-                    return true;
+            if(classroom.getFreeUsingTimeStart()!=null){
+                for (int k = 0; k < classroom.getFreeUsingTimeStart().size(); k++) {
+                    long cXStartTime = classroom.getFreeUsingTimeStart().indexOf(k);
+                    long cXEndTime = classroom.getFreeUsingTimeEnd().indexOf(k);
+                    if(c.compare(startTime,endTime,cXStartTime,cXEndTime)){
+                        return true;
+                    }
                 }
             }
         }
         else {
             MeetingRoom meetingRoom = (MeetingRoom)thisRoom;
-            if(meetingRoom.getFreeUsingTimeStart() == null){
-                return false;
-            }
-            long useTime = useHour*3600+useMinute*60;
-            for (int i = 0; i < meetingRoom.getFreeUsingTimeStart().size(); i++) {
-                if((useTime > meetingRoom.getFreeUsingTimeStart().get(i)&&
-                        useTime < meetingRoom.getFreeUsingTimeEnd().get(i))){
-                    return true;
+            meetingRoom = j.joint(meetingRoom,rta);
+            long startTime = (startHour*3600) + (startMinute*60);
+            long endTime = (endHour*3600) + (endMinute*60);
+            if(meetingRoom.getFreeUsingTimeStart() != null){
+                for (int i = 0; i < meetingRoom.getFreeUsingTimeStart().size(); i++) {
+                    long mFStartTime = meetingRoom.getFreeUsingTimeStart().indexOf(i);
+                    long mFEndTime = meetingRoom.getFreeUsingTimeEnd().indexOf(i);
+                    if(c.compare(startTime,endTime,mFStartTime,mFEndTime)){
+                        return true;
+                    }
                 }
             }
         }

@@ -38,5 +38,15 @@ public abstract class Room {
             this.freeUsingTimeEnd.add(endLong);
         }
     }
-
+    public void addNewFreeUsingTime(long startTime,long endTime){
+        if(this.freeUsingTimeStart == null){
+            this.freeUsingTimeStart = new ArrayList<Long>();
+            this.freeUsingTimeStart.add(startTime);
+            this.freeUsingTimeEnd = new ArrayList<Long>();
+            this.freeUsingTimeEnd.add(endTime);
+        }else{
+            this.freeUsingTimeStart.add(startTime);
+            this.freeUsingTimeEnd.add(endTime);
+        }
+    }
 }

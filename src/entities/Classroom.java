@@ -35,7 +35,17 @@ public class Classroom extends Room {
             this.fixedUsingTimeEnd.add(endLong);
         }
     }
-
+    public void addNewFixedUsingTime(long startTime,long endTime){
+        if(this.fixedUsingTimeStart == null){
+            this.fixedUsingTimeStart = new ArrayList<Long>();
+            this.fixedUsingTimeStart.add(startTime);
+            this.fixedUsingTimeEnd = new ArrayList<Long>();
+            this.fixedUsingTimeEnd.add(endTime);
+        }else{
+            this.fixedUsingTimeStart.add(startTime);
+            this.fixedUsingTimeEnd.add(endTime);
+        }
+    }
     @Override
     public boolean equals(Object obj){
         if(!(obj instanceof Classroom)){

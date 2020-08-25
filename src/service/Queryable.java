@@ -15,7 +15,7 @@ public interface Queryable {
                                            int lastHour, int lastMinute,
                                            boolean isMultimedia);
 
-    boolean isUsed(String roomName,int useHour,int useMinute);
+    boolean isUsed(String roomName,int startHour,int startMinute,int endHour,int endMinute);
 
     List<RentAction> cancelQuery();
 }

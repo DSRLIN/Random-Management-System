@@ -255,7 +255,7 @@ public class Management {
         int loanHour=input.nextInt();
         int loanmin=input.nextInt();
         boolean state=false;
-        state = user.isUsed(roomName,loanHour,loanmin);
+        state = user.isUsed(roomName,loanHour,loanmin, , );
         if(state){
             System.out.println("该房间在"+loanHour+"小时"+loanmin+"分钟被占用");
         }else{
@@ -484,7 +484,7 @@ public class Management {
         int loanHour=input.nextInt();
         int loanmin=input.nextInt();
         boolean state=false;//判断是否被占用
-        state = user.isUsed(roomName,loanHour,loanmin);
+        state = user.isUsed(roomName,loanHour,loanmin, , );
         if(state){
             System.out.println("该房间在"+loanHour+"小时"+loanmin+"分钟被占用");
         }else{
