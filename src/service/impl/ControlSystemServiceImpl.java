@@ -20,7 +20,7 @@ public class ControlSystemServiceImpl implements ControlSystemService {
     public List<Room>  queryRecommendResult(RoomNumType roomNum,
                                             int startHour, int startMinute,
                                             int lastHour, int lastMinute,
-                                            boolean isMultimedia) {
+                                            boolean isFixedTimeUsed) {
         if(isLogin) {
             int endHour = startHour + lastHour;
             int endMinute = startMinute + lastMinute;
@@ -28,12 +28,18 @@ public class ControlSystemServiceImpl implements ControlSystemService {
                 endMinute -= 60;
                 endHour += 1;
             }
+            String qStr;
+            if(isFixedTimeUsed){
+                qStr = "教室";
+            }else{
+                qStr = "会议室";
+            }
             RoomDao rd = new RoomDaoImpl();
             RentDao rtd = new RentDaoImpl();
             List<Room> roomNumList = rd.queryRoomList(roomNum);
-            List<Room> roomMultimediaList = rd.queryRoomList(isMultimedia);
+            List<Room> roomFixedList = rd.queryRoomList(qStr);
             //注：最后的返回项是roomNumList
-            roomNumList.retainAll(roomMultimediaList);
+            roomNumList.retainAll(roomFixedList);
             for (Room rm:roomNumList) {
                 String roomName = rm.getRoomName();
                 if(isUsed(roomName,startHour,startMinute,endHour,endMinute)){
@@ -64,11 +70,11 @@ public class ControlSystemServiceImpl implements ControlSystemService {
             }
             if (thisRoom.getIsFixedTimeUsed()) {
                 Classroom classroom = (Classroom) thisRoom;
-                return rtd.addRent(0, classroom.getRoomName(),
+                return rtd.addRent(11, classroom.getRoomName(),
                         Integer.toString(startTime), Integer.toString(lastTime), true);
             } else {
                 MeetingRoom meetingRoom = (MeetingRoom) thisRoom;
-                return rtd.addRent(0, meetingRoom.getRoomName(),
+                return rtd.addRent(11, meetingRoom.getRoomName(),
                         Integer.toString(startTime), Integer.toString(lastTime), false);
             }
         }else return false;
@@ -97,8 +103,8 @@ public class ControlSystemServiceImpl implements ControlSystemService {
             long endTime = (endHour*3600) + (endMinute*60);
             if(classroom.getFixedUsingTimeStart()!=null){
                 for (int i = 0; i < classroom.getFixedUsingTimeStart().size(); i++) {
-                    long cFStartTime = classroom.getFixedUsingTimeStart().indexOf(i);
-                    long cFEndTime = classroom.getFixedUsingTimeEnd().indexOf(i);
+                    long cFStartTime = classroom.getFixedUsingTimeStart().get(i);
+                    long cFEndTime = classroom.getFixedUsingTimeEnd().get(i);
                     if(c.compare(startTime,endTime,cFStartTime,cFEndTime)){
                         return true;
                     }
@@ -106,8 +112,8 @@ public class ControlSystemServiceImpl implements ControlSystemService {
             }
             if(classroom.getFreeUsingTimeStart()!=null){
                 for (int k = 0; k < classroom.getFreeUsingTimeStart().size(); k++) {
-                    long cXStartTime = classroom.getFreeUsingTimeStart().indexOf(k);
-                    long cXEndTime = classroom.getFreeUsingTimeEnd().indexOf(k);
+                    long cXStartTime = classroom.getFreeUsingTimeStart().get(k);
+                    long cXEndTime = classroom.getFreeUsingTimeEnd().get(k);
                     if(c.compare(startTime,endTime,cXStartTime,cXEndTime)){
                         return true;
                     }
@@ -121,8 +127,8 @@ public class ControlSystemServiceImpl implements ControlSystemService {
             long endTime = (endHour*3600) + (endMinute*60);
             if(meetingRoom.getFreeUsingTimeStart() != null){
                 for (int i = 0; i < meetingRoom.getFreeUsingTimeStart().size(); i++) {
-                    long mFStartTime = meetingRoom.getFreeUsingTimeStart().indexOf(i);
-                    long mFEndTime = meetingRoom.getFreeUsingTimeEnd().indexOf(i);
+                    long mFStartTime = meetingRoom.getFreeUsingTimeStart().get(i);
+                    long mFEndTime = meetingRoom.getFreeUsingTimeEnd().get(i);
                     if(c.compare(startTime,endTime,mFStartTime,mFEndTime)){
                         return true;
                     }
