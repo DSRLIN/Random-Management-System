@@ -45,7 +45,7 @@ public class BaseDao {
      * @param pStmt 预编译语句对象
      * @param rs 结果集对象
      */
-    public static synchronized void closeObject(Connection conn, PreparedStatement pStmt, ResultSet rs){
+    public static void closeObject(Connection conn, PreparedStatement pStmt, ResultSet rs){
         try{
             if(rs != null) rs.close();
             if(pStmt != null) pStmt.close();
