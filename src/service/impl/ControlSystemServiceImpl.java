@@ -70,11 +70,11 @@ public class ControlSystemServiceImpl implements ControlSystemService {
             }
             if (thisRoom.getIsFixedTimeUsed()) {
                 Classroom classroom = (Classroom) thisRoom;
-                return rtd.addRent(0, classroom.getRoomName(),
+                return rtd.addRent(11, classroom.getRoomName(),
                         Integer.toString(startTime), Integer.toString(lastTime), true);
             } else {
                 MeetingRoom meetingRoom = (MeetingRoom) thisRoom;
-                return rtd.addRent(0, meetingRoom.getRoomName(),
+                return rtd.addRent(11, meetingRoom.getRoomName(),
                         Integer.toString(startTime), Integer.toString(lastTime), false);
             }
         }else return false;
